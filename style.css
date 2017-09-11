@@ -22,14 +22,14 @@ body {
 }
 
 .header_item {
-    position: relative;
+    /*position: absolute;*/
     height: 4em;
-    top: 50%;
-    transform: translate(0, -50%);
+    margin: 2em auto 2em;
+    /*margin: auto;*/
 }
 
-.icon {
-
+#logo {
+    float: left;
 }
 
 #content {
