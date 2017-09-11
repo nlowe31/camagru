@@ -1,3 +1,7 @@
+body {
+    font-size: 12pt;
+}
+
 #container {
     position: absolute;
     background-color: #fafafa;
@@ -13,13 +17,24 @@
     background-color: white;
     opacity: .95;
     border-bottom: 1px solid #efefef;
-    height: 10%;
+    height: 6em;
     width: 100%;
+}
+
+.header_item {
+    position: relative;
+    height: 4em;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.icon {
+
 }
 
 #content {
     width: 100%;
-    margin: 10% auto 0;
+    margin: 6em auto 0;
     padding: 0;
 }
 
