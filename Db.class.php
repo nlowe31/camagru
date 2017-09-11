@@ -14,9 +14,19 @@ class Db {
 			    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 			    PDO::ATTR_EMULATE_PREPARES   => false,
 			];
-			self::$instance = new PDO("mysql:host=$config['host'];dbname=$config['dbName']", $config['username'], $config['password'], $options);
+			try {
+				self::$instance = new PDO("mysql:host={$config['host']};dbname={$config['dbName']}", $config['username'], $config['password'], $options);
+			} catch (PDOException $e) {
+				die($e->getMessage());
+			}
 		}
 		return self::$instance;
 	}
+
+	public static function insert($table, $stmt, $values) {
+		self::get();
+		
+	}
 }
+
 ?>
