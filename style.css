@@ -1,0 +1,25 @@
+#container {
+    position: absolute;
+    background-color: #fafafa;
+}
+
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    margin: 0 auto;
+    text-align: center;
+    background-color: white;
+    opacity: .95;
+    border-bottom: 1px solid #efefef;
+    height: 10%;
+    width: 100%;
+}
+
+#content {
+    width: 100%;
+    margin: 10% auto 0;
+    padding: 0;
+}
+
