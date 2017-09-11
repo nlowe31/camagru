@@ -23,9 +23,11 @@ class Db {
 		return self::$instance;
 	}
 
-	public static function insert($table, $stmt, $values) {
+	public static function query($sql, $values) {
 		self::get();
-		
+		$stmt = self::$instance->prepare($stmt);
+		self::$instance->execute($values);
+
 	}
 }
 
