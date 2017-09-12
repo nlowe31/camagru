@@ -23,11 +23,21 @@ class Db {
 		return self::$instance;
 	}
 
-	public static function query($sql, $values) {
+	public static function exec($sql, $values) {
 		self::get();
 		$stmt = self::$instance->prepare($stmt);
-		self::$instance->execute($values);
+		$count = $stmt->execute($values);
+		return $count;
+	}
 
+	public static function insert($table, $attributes, $values) {
+		self::get();
+		$sql = "INSERT INTO $table (";
+		foreach ($attributes as $attribute) {
+			$sql .= $attribute;
+			if (next($attributes) === TRUE)
+				$sql .= ", ";
+		}
 	}
 }
 

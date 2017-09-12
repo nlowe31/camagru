@@ -21,7 +21,7 @@ class User {
 
     public static function get($uid) {
         $db = Db::get();
-        $stmt = $pdo->prepare('SELECT * FROM users WHERE uid=:uid');
+        $stmt = $db->prepare('SELECT * FROM users WHERE uid=:uid');
         $stmt->execute(['uid' => $uid]);
         $user = $stmt->fetch();
 
@@ -30,7 +30,7 @@ class User {
 
     public static function find($email) {
         $db = Db::get();
-        $stmt = $pdo->prepare('SELECT * FROM users WHERE email=:email');
+        $stmt = $db->prepare('SELECT * FROM users WHERE email=:email');
         $stmt->execute(['email' => $email]);
         $user = $stmt->fetch();
 
@@ -39,7 +39,7 @@ class User {
 
     public function update() {
         $db = Db::get();
-        $stmt = $pdo->prepare('UPDATE users SET email=:email, firstName=:firstName, lastName=:lastName, confirmed=:confirmed WHERE uid=:uid');
+        $stmt = $db->prepare('UPDATE users SET email=:email, firstName=:firstName, lastName=:lastName, confirmed=:confirmed WHERE uid=:uid');
         $stmt->execute(['email' => $this->email],
             ['firstName' => $this->firstName],
             ['lastName' => $this->lastName],
