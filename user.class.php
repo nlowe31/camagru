@@ -3,51 +3,43 @@
 class User {
     public $uid;
     public $email;
+    protected $password;
     public $firstName;
     public $lastName;
     public $created;
     public $confirmed;
 
-    public function __construct($uid, $email, $firstName, $lastName, $created, $confirmed) {
-        $this->uid = $uid;
-        $this->email = $email;
-        $this->firstName = $firstName;
-        $this->lastName = $lastName;
-        $this->created = $created;
-        $this->confirmed = $confirmed;
-    }
+    public function __construct() {}
 
     public static function create($email, $password, $firstName, $lastName) {
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        return self::get(Db::insert('INSERT INTO users (email, password, firstName, lastName) VALUES (?, ?, ?, ?)', [$email, $password, $firstName, $lastName]));
+    }
+
+    // public static function get($uid) {
+    //     $user = Db::select_one('SELECT * FROM users WHERE uid=?', [$uid]);
+    //     if (isset($user))
+    //         return new User($user['uid'], $user['email'], $user['password'], $user['firstName'], $user['lastName'], $user['created'], $user['confirmed']);
+    //     return FALSE;
+    // }
 
     public static function get($uid) {
-        $db = Db::get();
-        $stmt = $db->prepare('SELECT * FROM users WHERE uid=:uid');
-        $stmt->execute(['uid' => $uid]);
-        $user = $stmt->fetch();
-
-        return new User($user['uid'], $user['email'], $user['firstName'], $user['lastName'], $user['created'], $user['confirmed']);
+        return Db::select_object('SELECT * FROM users WHERE uid=?', [$uid], 'User');
     }
 
     public static function find($email) {
-        $db = Db::get();
-        $stmt = $db->prepare('SELECT * FROM users WHERE email=:email');
-        $stmt->execute(['email' => $email]);
-        $user = $stmt->fetch();
-
-        return new User($user['uid'], $user['email'], $user['firstName'], $user['lastName'], $user['created'], $user['confirmed']);
+        return Db::select_object('SELECT * FROM users WHERE email=?', [$email], 'User');
     }
 
-    public function update() {
-        $db = Db::get();
-        $stmt = $db->prepare('UPDATE users SET email=:email, firstName=:firstName, lastName=:lastName, confirmed=:confirmed WHERE uid=:uid');
-        $stmt->execute(['email' => $this->email],
-            ['firstName' => $this->firstName],
-            ['lastName' => $this->lastName],
-            ['confirmed' => $this->confirmed],
-            ['uid' => $this->uid]);
-        if ($stmt->rowCount() > 0)
-            return true;
-        return false;
+    public function authenticate($password) {
+        return password_verify($password, $this->password);
+    }
+
+    public function push() {
+        $count = Db::update('UPDATE users SET email=?, firstName=?, lastName=?, confirmed=? WHERE uid=?', [$this->email, $this->firstName, $this->lastName, $this->confirmed, $this->uid]);
+        if ($count > 0)
+            return TRUE;
+        return FALSE;
     }
 }
 ?>

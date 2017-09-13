@@ -1,7 +1,8 @@
 <?php
 $paths = array(
 	'pages' => ['home', 'error'],
-	'other' => ['other'];
+	'user' => ['signup', 'login'],
+	'other' => ['other']
 );
 
 function call($controller, $action) {
