@@ -15,8 +15,8 @@ class Db {
 			    PDO::ATTR_EMULATE_PREPARES   => false,
 			];
 			try {
-				self::$instance = new PDO("mysql:unix_socket=/Applications/MAMP/tmp/mysql/mysql.sock;dbname={$config['dbName']}", $config['username'], $config['password'], $options);
-				// self::$instance = new PDO("mysql:host={$config['host']};dbname={$config['dbName']}", $config['username'], $config['password'], $options);
+				self::$instance = new PDO("mysql:unix_socket=/Applications/MAMP/tmp/mysql/mysql.sock;dbname={$config['dbName']};charset=UTF8", $config['username'], $config['password'], $options);
+				// self::$instance = new PDO("mysql:host={$config['host']};dbname={$config['dbName']};charset=UTF8", $config['username'], $config['password'], $options);
 			} catch (PDOException $e) {
 				die($e->getMessage());
 			}
@@ -33,11 +33,38 @@ class Db {
 
 	public static function insert($sql, $values) {
 		self::get();
-		$stmt = self::$instance->prepare("$sql");
-		if ($stmt->execute($values))
-			return self::$instance->lastInsertId();
-		return FALSE;
+		$stmt = self::$instance->prepare($sql);
+		$stmt->execute($values);
+		return self::$instance->lastInsertId();
 	}
+
+	public static function update($sql, $values) {
+		self::get();
+		$stmt = self::$instance->prepare($sql);
+		$stmt->execute($values);
+		return $stmt->rowCount();
+	}
+
+	public static function select($sql, $values) {
+		self::get();
+		$stmt = self::$instance->prepare($sql);
+		$stmt->execute($values);
+		return $stmt;
+	}
+
+	public static function select_one($sql, $values) {
+		self::get();
+		$stmt = self::$instance->prepare($sql);
+		$stmt->execute($values);
+		return $stmt->fetch();
+	}
+
+	public static function select_all($table) {
+		self::get();
+		$stmt = self::$instance->query("SELECT * FROM $table");
+		return $stmt;
+	}
+
 }
 
 ?>
