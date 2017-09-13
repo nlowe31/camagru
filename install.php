@@ -14,7 +14,7 @@ $options = [
 ];
 
 try {
-    $db = new PDO("mysql:host={$config['host']}", $config['username'], $config['password'], $options);
+    $db = new PDO("mysql:host={$config['host']};unix_socket=/Applications/MAMP/tmp/mysql/mysql.sock", $config['username'], $config['password'], $options);
 } catch (PDOException $e) {
     die($e->getMessage());
 }

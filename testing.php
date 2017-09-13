@@ -5,6 +5,6 @@ include('Db.class.php');
 
 $db = Db::get();
 
-Db::insert('users', ['email', 'firstName'], ['nlowe31@gmail.com', 'Nate']);
+echo (Db::insert('INSERT INTO users (email, firstName) VALUES (?, ?)', ['nlowe31@gmail.com', 'Nate']));
 
 ?>

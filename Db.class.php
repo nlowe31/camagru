@@ -15,7 +15,8 @@ class Db {
 			    PDO::ATTR_EMULATE_PREPARES   => false,
 			];
 			try {
-				self::$instance = new PDO("mysql:host={$config['host']};dbname={$config['dbName']}", $config['username'], $config['password'], $options);
+				self::$instance = new PDO("mysql:unix_socket=/Applications/MAMP/tmp/mysql/mysql.sock;dbname={$config['dbName']}", $config['username'], $config['password'], $options);
+				// self::$instance = new PDO("mysql:host={$config['host']};dbname={$config['dbName']}", $config['username'], $config['password'], $options);
 			} catch (PDOException $e) {
 				die($e->getMessage());
 			}
@@ -30,20 +31,12 @@ class Db {
 		return $count;
 	}
 
-	public static function insert($table, $attributes, $values) {
+	public static function insert($sql, $values) {
 		self::get();
-		$len = sizeof($attributes);
-		if (len !== sizeof($values))
-			return false;
-		for ($i = 1; $i < $len; $i++) {
-			$repeat .= '?, ';
-		}
-		$repeat .= '?';
-		echo "INSERT INTO $table (" . $repeat . ") VALUES (" . $repeat . ")";
-		// $stmt = self::$instance->prepare("INSERT INTO $table (" . $repeat . ") VALUES (" . $repeat . ")");
-		// if ($stmt->execute(array_merge($attributes, $values)))
-		// 	return self::$instance->lastInsertId;
-		// return FALSE;
+		$stmt = self::$instance->prepare("$sql");
+		if ($stmt->execute($values))
+			return self::$instance->lastInsertId();
+		return FALSE;
 	}
 }
 
