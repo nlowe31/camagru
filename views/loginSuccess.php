@@ -1,0 +1,1 @@
+<p>User <?=$this->user->firstName?> <?=$this->user->lastName?> successfully logged in.</p>

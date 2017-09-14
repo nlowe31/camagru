@@ -33,6 +33,9 @@ $userController = new UserController;
 $_POST['email'] = 'nate@gmail.com';
 $_POST['password'] = 'lolol';
 $_POST['Login'] = 'Login';
+
+$user = User::find($_POST['email']);
+
 $userController->auth();
 // $userController->loginSuccess();
 

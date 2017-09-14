@@ -16,13 +16,6 @@ class User {
         return self::get(Db::insert('INSERT INTO users (email, password, firstName, lastName) VALUES (?, ?, ?, ?)', [$email, $password, $firstName, $lastName]));
     }
 
-    // public static function get($uid) {
-    //     $user = Db::select_one('SELECT * FROM users WHERE uid=?', [$uid]);
-    //     if (isset($user))
-    //         return new User($user['uid'], $user['email'], $user['password'], $user['firstName'], $user['lastName'], $user['created'], $user['confirmed']);
-    //     return FALSE;
-    // }
-
     public static function get($uid) {
         return Db::select_object('SELECT * FROM users WHERE uid=?', [$uid], 'User');
     }
