@@ -1,4 +1,7 @@
 <?php
+
+$root = $_SERVER['DOCUMENT_ROOT'] . '/';
+
 $paths = array(
 	'pages' => ['home', 'error'],
 	'user' => ['signup', 'login'],
@@ -6,13 +9,17 @@ $paths = array(
 );
 
 function call($controller, $action) {
-	require_once('controllers/' . $controller . 'Controller.php');
+	require_once('controllers/' . ucfirst($controller) . 'Controller.class.php');
+
 	switch($controller) {
 		case 'pages':
 			$controller = new PagesController();
 		break;
+		case 'user':
+			$controller = new UserController();
+		break;
 	}
-	call_user_func('$controller->' . $action);
+	$controller->{$action}();
 }
 
 if (array_key_exists($controller, $paths)) {
@@ -26,4 +33,5 @@ if (array_key_exists($controller, $paths)) {
 else {
 	call('pages', 'error');
 }
+
 ?>
