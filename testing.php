@@ -27,8 +27,13 @@ $db = Db::get();
 // $form->text();
 // $form->put();
 
+session_start();
 require_once('controllers/UserController.class.php');
 $userController = new UserController;
+$_POST['email'] = 'nate@gmail.com';
+$_POST['password'] = 'lolol';
+$_POST['Login'] = 'Login';
 $userController->auth();
+// $userController->loginSuccess();
 
 ?>

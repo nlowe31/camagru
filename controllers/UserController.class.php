@@ -14,6 +14,7 @@ class UserController {
             if ($user = User::get($_POST['email'])) {
                 if ($user->authenticate($_POST['password']) === TRUE) {
                     $_SESSION['user'] = $user;
+                    print_r($user);
                     if ($user->confirmed == 1)
                         return $this->loginSuccess();
                     return $this->confirmEmail();
@@ -21,12 +22,12 @@ class UserController {
             return $this->loginFailure();
             }
         }
-        return $this->loginSuccess();
+        return $this->loginFailure();
     }
 
-    private function loginSuccess() {
+    public function loginSuccess() {
         echo "loginSuccess\n";        
-        echo "User {$_SESSION['user']->firstName} {$_SESSION['user']->lastName} logged in successfully.\n";
+        // echo "User {$_SESSION['user']->firstName} {$_SESSION['user']->lastName} logged in successfully.\n";
         // require_once('views/loginSuccess.php');
     }
     
