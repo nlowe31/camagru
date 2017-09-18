@@ -27,16 +27,25 @@ $db = Db::get();
 // $form->text();
 // $form->put();
 
-session_start();
-require_once('controllers/UserController.class.php');
-$userController = new UserController;
-$_POST['email'] = 'nate@gmail.com';
-$_POST['password'] = 'lolol';
-$_POST['Login'] = 'Login';
+// session_start();
+// require_once('controllers/UserController.class.php');
+// $userController = new UserController;
+// $_POST['email'] = 'nate@gmail.com';
+// $_POST['password'] = 'lolol';
+// $_POST['Login'] = 'Login';
 
-$user = User::find($_POST['email']);
+// $user = User::find($_POST['email']);
 
-$userController->auth();
-// $userController->loginSuccess();
+// $userController->auth();
+// // $userController->loginSuccess();
+
+// echo $host  = $_SERVER['HTTP_HOST'];
+
+error_reporting(E_ALL);
+
+require_once('Router.class.php');
+$test = new Router('/lolol/yes/no');
+echo $test->controller;
+print_r($test);
 
 ?>

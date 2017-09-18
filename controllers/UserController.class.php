@@ -47,7 +47,9 @@ class UserController {
     
     public function confirmedEmail() {}
 
-    public function signup() {}
+    public function signup() {
+        require_once('views/signup.php');
+    }
 
     public function createUser() {}
 

@@ -29,7 +29,7 @@ class User {
     }
 
     public function push() {
-        $count = Db::update('UPDATE users SET email=?, firstName=?, lastName=?, confirmed=? WHERE uid=?', [$this->email, $this->firstName, $this->lastName, $this->confirmed, $this->uid]);
+        $count = Db::update('UPDATE users SET email=?, password=?, firstName=?, lastName=?, confirmed=? WHERE uid=?', [$this->email, $this->password, $this->firstName, $this->lastName, $this->confirmed, $this->uid]);
         if ($count > 0)
             return TRUE;
         return FALSE;
