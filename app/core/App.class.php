@@ -1,12 +1,13 @@
 <?php
 
 class App {
+
     protected $controller = 'pages';
     protected $action = 'error';
     protected $params = [];
     
     public function __construct() {
-        $uri = $this->parseURI();
+        $uri = self::parseURI();
         
         if (file_exists('app/controllers/' . $uri[0] . 'Controller.class.php')) {
             $this->controller = $uri[0];
@@ -18,8 +19,8 @@ class App {
         $this->controller = new $this->controller;
 
         if (isset($uri[1])) {
-            if (method_exists($this->controller, $url[1])) {
-                $this->method = $uri[1];
+            if (method_exists($this->controller, $uri[1])) {
+                $this->action = $uri[1];
                 unset($uri[1]);
             }
         }
@@ -31,13 +32,21 @@ class App {
             }
         }
 
-        call_user_func_array([$this->controller, $this->action], $this->params);
+        call_user_func([$this->controller, $this->action], $this->params);
     }
 
-    protected function parseURI () {
+    protected static function parseURI () {
         if (isset($_SERVER['REQUEST_URI'])) {
-            return explode('/', filter_var(rtrim($_SERVER['REQUEST_URI'], '/'), FILTER_SANITIZE_URL));
+            return explode('/', filter_var(rtrim(trim($_SERVER['REQUEST_URI'], '/'), '/'), FILTER_SANITIZE_URL));
         }
+    }
+
+    public static function link($url) {
+        return ($_SERVER['SERVER_NAME'] . '/' . $url);
+    }
+
+    public static function go($url) {
+        header('Location: ' . self::link($url));
     }
 }
 

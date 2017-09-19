@@ -1,18 +1,14 @@
 <?php
 
 class UserController extends Controller {
-    public $user;
-    
+    private $user;
+
     public function __construct() {
-        echo 'UserController';
-        if (isset($_SESSION['user'])) {
-            if (!($this->user = User::get($_SESSION['user'])))
-                unset($this->user);
-        }
+        $this->getModel('user');
     }
     
     public function login() {
-        require_once('views/login.php');
+        $this->displayView('user/login');
     }
 
     public function auth() {
@@ -30,11 +26,10 @@ class UserController extends Controller {
     }
 
     public function loginSuccess() {
-        echo "loginSuccess\n";
         $_SESSION['user'] = $this->user->uid;
         echo "User {$this->user->firstName} {$this->user->lastName} currently logged in.\n";
         // echo "User {$_SESSION['user']->firstName} {$_SESSION['user']->lastName} logged in successfully.\n";
-        require_once('views/loginSuccess.php');
+        $this->displayView('user/loginSuccess.php');
     }
     
     private function loginFailure() {
@@ -44,14 +39,29 @@ class UserController extends Controller {
     public function unconfirmedEmail() {
         echo "Email confirmation needed\n";
     }
-    
-    public function confirmedEmail() {}
 
-    public function signup() {
-        require_once('views/signup.php');
+    public function signup($error = NULL) {
+        $this->displayView('user/signup');
     }
 
-    public function createUser() {}
+    public function createUser() {
+        if (isset($_POST['Login']) && $_POST['Login'] == 'Login' && isset($_POST['email'], $_POST['firstName'], $_POST['lastName'], $_POST['password'], $_POST['confirm'])) {
+            if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                if ($_POST['password'] === $_POST['confirm']) {
+                    if ($this->user = User::create($_POST['email'], $_POST['password'], $_POST['firstName'], $_POST['lastName'])) {
+                        return $this->unconfirmedEmail();
+                    }
+                    else
+                        return $this->signup("An unknown error occurred. Please try again later.");
+                }
+                else
+                    return $this->signup("Invalid email address.");
+            }
+            else
+                return $this->signup("Invalid email address.");
+        }
+        return $this->signup("Please ensure all fields have been completed.");
+    }
 
     public function myAccount() {}
 
