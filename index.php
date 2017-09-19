@@ -1,19 +1,9 @@
 <?php
 
-session_start();
+error_reporting(E_ALL);
 
-require_once('Db.class.php');
-require_once('Form.class.php');
+require_once('app/init.php');
 
-if (isset($_GET['controller']) && isset($_GET['action'])) {
-	$controller = $_GET['controller'];
-	$action = $_GET['action'];
-}
-else {
-	$controller = 'pages';
-	$action = 'home';
-}
-
-require_once('layout.php');
+$app = new App;
 
 ?>

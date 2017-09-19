@@ -17,8 +17,8 @@ class Db {
 			    PDO::ATTR_EMULATE_PREPARES   => false,
 			];
 			try {
-				self::$instance = new PDO("mysql:unix_socket=/Applications/MAMP/tmp/mysql/mysql.sock;dbname={$config['dbName']};charset=utf8mb4", $config['username'], $config['password'], $options);
-				// self::$instance = new PDO("mysql:host={$config['host']};dbname={$config['dbName']};charset=utf8mb4", $config['username'], $config['password'], $options);
+				self::$instance = new PDO("mysql:unix_socket=/Applications/MAMP/tmp/mysql/mysql.sock;dbname={$config['dbName']};charset={$config['charset']}", $config['username'], $config['password'], $options);
+				// self::$instance = new PDO("mysql:host={$config['host']};dbname={$config['dbName']};charset={$config['charset']}", $config['username'], $config['password'], $options);
 			} catch (PDOException $e) {
 				die($e->getMessage());
 			}

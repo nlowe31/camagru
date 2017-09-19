@@ -6,8 +6,8 @@ class Router {
     public $action;
     public $params;
 
-    public function __construct($address = NULL) {
-        $this->uri = array_reverse(explode('/', (isset($address) ? $address : $_SERVER['REQUEST_URI'])));
+    public function __construct() {
+        $this->uri = explode('/', filter_var(rtrim($_SERVER['REQUEST_URI'], '/'), FILTER_SANITIZE_URL));
         array_pop($this->uri);
         $this->controller = array_pop($this->uri);
         $this->action = array_pop($this->uri);
