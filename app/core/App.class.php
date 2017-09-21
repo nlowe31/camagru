@@ -25,14 +25,16 @@ class App {
             }
         }
         
-        if ($uri) {
-            foreach ($uri as $element) {
-                $get = explode('=', $element);
-                $this->params[$get[0]] = $get[1];
-            }
-        }
+        // if ($uri) {
+        //     foreach ($uri as $element) {
+        //         $get = explode('=', $element);
+        //         $this->params[$get[0]] = $get[1];
+        //     }
+        // }
 
-        call_user_func([$this->controller, $this->action], $this->params);
+        $this->params = array_values($uri);
+
+        call_user_func_array([$this->controller, $this->action], $this->params);
     }
 
     protected static function parseURI () {

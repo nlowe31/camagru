@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
     `lastName` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
     `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
     `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `registration` varchar(255) COLLATE utf8_unicode_ci,
     `confirmed` tinyint(1) NOT NULL DEFAULT 0,
     UNIQUE (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

@@ -7,6 +7,7 @@ class User {
     public $firstName;
     public $lastName;
     public $created;
+    public $registration;
     public $confirmed;
 
     public function __construct() {}
@@ -28,8 +29,12 @@ class User {
         return password_verify($password, $this->password);
     }
 
-    public function push() {
-        $count = Db::update('UPDATE users SET email=?, password=?, firstName=?, lastName=?, confirmed=? WHERE uid=?', [$this->email, $this->password, $this->firstName, $this->lastName, $this->confirmed, $this->uid]);
+    public function setPassword($password) {
+        $this->password = password_hash($password, PASSWORD_DEFAULT);        
+    }
+
+     public function push() {
+        $count = Db::update('UPDATE users SET email=?, password=?, firstName=?, lastName=?, confirmed=?, registration=? WHERE uid=?', [$this->email, $this->password, $this->firstName, $this->lastName, $this->confirmed, $this->registration, $this->uid]);
         if ($count > 0)
             return TRUE;
         return FALSE;
