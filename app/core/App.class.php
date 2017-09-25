@@ -25,13 +25,6 @@ class App {
             }
         }
         
-        // if ($uri) {
-        //     foreach ($uri as $element) {
-        //         $get = explode('=', $element);
-        //         $this->params[$get[0]] = $get[1];
-        //     }
-        // }
-
         $this->params = array_values($uri);
 
         call_user_func_array([$this->controller, $this->action], $this->params);

@@ -7,7 +7,7 @@ class UserController extends Controller {
         $this->getModel('user');
     }
 
-    private function currentUser() {
+    private function getCurrentUser() {
         if (isset($this->user))
             return TRUE;
         else if (!isset($_SESSION['user'])) {
@@ -19,11 +19,24 @@ class UserController extends Controller {
         }
         return TRUE;
     }
+
+    private function loggedIn() {
+        if ($this->getCurrentUser() && $_SESSION['auth'] === $this->user->uid)
+            return TRUE;
+        return FALSE;
+    }
     
     public function login($error = '') {
         if (isset($_SESSION['user']))
             return $this->loginSuccess();
-        $this->displayView('user/login');
+        $this->displayView('user/login', ['error' => $error]);
+    }
+
+    public function logout() {
+        unset($this->user);
+        unset($_SESSION['auth']);
+        unset($_SESSION['user']);
+        return $this->login('Successfully logged out.');
     }
 
     public function auth() {
@@ -40,58 +53,56 @@ class UserController extends Controller {
     }
 
     public function loginSuccess() {
-        if (!isset($_SESSION['user'])) {
-            return $this->login();
-        }
-        if (!isset($this->user)) {
-            if (!($this->user = User::get($_SESSION['user']))) {
-                unset($_SESSION['user']);
-                return $this->login();
-            }
+        if (!($this->getCurrentUser())) {
+            unset($_SESSION['user']);
+            return $this->login();            
         }
         if ($this->user->confirmed == 0)
             return $this->unconfirmedEmail();
         $_SESSION['auth'] = $this->user->uid;
         echo "User {$this->user->firstName} {$this->user->lastName} currently logged in.\n";
         // echo "User {$_SESSION['user']->firstName} {$_SESSION['user']->lastName} logged in successfully.\n";
-        $this->displayView('user/loginSuccess.php');
+        $this->displayView('user/loginSuccess');
     }
     
     public function signup($error = '') {
-        $this->displayView('user/signup');
+        $this->displayView('user/signup', ['error' => $error]);
     }
 
     public function createUser() {
-        if (isset($_POST['Login'], $_POST['email'], $_POST['firstName'], $_POST['lastName'], $_POST['password'], $_POST['confirm']) && $_POST['Login'] == 'Login') {
+        if (isset($_POST['Submit'], $_POST['email'], $_POST['firstName'], $_POST['lastName'], $_POST['password'], $_POST['confirm']) && $_POST['Submit'] == 'Sign Up') {
             if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 if ($_POST['password'] === $_POST['confirm']) {
-                    if (User::find($_POST['Email']) === FALSE) {
+                    if (User::find($_POST['email']) === FALSE) {
                         if ($this->user = User::create($_POST['email'], $_POST['password'], $_POST['firstName'], $_POST['lastName'])) {
                             $_SESSION['user'] = $this->user->uid;
                             return $this->sendConfirmationEmail();
                         }
-                        else
-                            return $this->signup('An unknown error occurred. Please try again later.');
+                        return $this->signup('An unknown error occurred. Please try again later.');
                     }
-                    else
-                        return $this->signup('A user with this email address already exists.');
+                    return $this->signup('A user with this email address already exists.');
                 }
-                else
-                    return $this->signup('The passwords entered do not match one another.');
+                return $this->signup('The passwords entered do not match one another.');
             }
-            else
-                return $this->signup('Invalid email address.');
+            return $this->signup('Invalid email address.');
         }
         return $this->signup('Please ensure all fields have been completed.');
     }
 
-    public function sendConfirmationEmail($email) {
-        currentUser();
+    public function sendConfirmationEmail() {
+        if (!($this->getCurrentUser()) || $this->user->confirmed == 1)
+            return $this->login();
         $this->user->registration = hash("md5", date(DateTime::W3C));
-        // mail($this->user->email, "Please confirm your email", "")
-        // user/confirm/$this->user->email/$this->user->registration
-        $this->user->push();
-        return $this->user->unconfirmedEmail();
+        $this->user->push();        
+
+        $to = htmlspecialchars($this->user->email);
+        $from = 'noreply@camagru.com';
+        $subject = 'Camagru: Confirm your email';
+        $message = "Hi {$this->user->firstName},<br><br>Please confirm your email address by clicking the link below:<br><br><a href=\"http://localhost:8080/user/confirm/{$this->user->email}/{$this->user->registration}\">Confirm Email</a><br><br>Best,<br>The Camagru Team";
+        $headers = "From: " . $from . "\r\n";
+        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+        mail($to, $subject, $message, $headers);
+        return $this->unconfirmedEmail();
     }
 
     public function confirm($email, $key) {
@@ -107,11 +118,49 @@ class UserController extends Controller {
     }
 
     public function unconfirmedEmail($error = '') {
-        echo "Email confirmation needed\n";
+        if (!($this->getCurrentUser()) || $this->user->confirmed == 1)
+            return $this->login();
+        $this->displayView('user/confirmEmail', ['error' => $error]);
     }
 
-    public function myAccount() {}
+    public function myAccount($error = '') {
+        if (!loggedIn())
+            return $this->login();
+        $this->displayView('user/myAccount', ['error' => $error]);
+    }
 
-    public function changeUser() {}
+    public function changeUser() {
+        if (!loggedIn())
+            return $this->login();
+        if (isset($_POST['Submit']) && $_POST['Submit'] === 'Change Email' && isset($_POST['email'])) {
+            if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                if (User::find($_POST['email']) === FALSE) {
+                    $this->user->email = htmlspecialchars($_POST['email']);
+                    $this->user->confirmed = 0;
+                    $this->user->push();
+                    return $this->sendConfirmationEmail();
+                }
+                else
+                    return $this->myAccount('A user with this email address already exists.');
+            }
+            else
+                return $this->myAccount('Invalid email address.');
+        }
+        else if (isset($_POST['Submit']) && $_POST['Submit'] === 'Change Password' && isset($_POST['password'], $_POST['confirm'])) {
+            if ($_POST['password'] === $_POST['confirm']) {
+                $this->user->setPassword($_POST['password']);
+                $this->user->push();
+                return $this->myAccount('Password changed successfully.');
+            }
+            else
+                return $this->myAccount('The passwords entered do not match one another.');
+        }
+        else if (isset($_POST['Submit']) && $_POST['Submit'] === 'Change Name' && isset($_POST['firstName'], $_POST['lastName'])) {
+            $this->user->firstName = htmlspecialchars($_POST['firstName']);
+            $this->user->lastName = htmlspecialchars($_POST['lastName']);
+            $this->user->push();
+            return $this->myAccount('Name changed successfully.');
+        }
+    }
 }
 ?>

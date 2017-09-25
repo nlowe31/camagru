@@ -33,8 +33,15 @@ class User {
         $this->password = password_hash($password, PASSWORD_DEFAULT);        
     }
 
-     public function push() {
+    public function push() {
         $count = Db::update('UPDATE users SET email=?, password=?, firstName=?, lastName=?, confirmed=?, registration=? WHERE uid=?', [$this->email, $this->password, $this->firstName, $this->lastName, $this->confirmed, $this->registration, $this->uid]);
+        if ($count > 0)
+            return TRUE;
+        return FALSE;
+    }
+
+    public function delete() {
+        $count = Db::update('DELETE FROM users WHERE uid=?', [$this->uid]);
         if ($count > 0)
             return TRUE;
         return FALSE;
