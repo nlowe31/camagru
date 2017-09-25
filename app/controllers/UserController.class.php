@@ -5,6 +5,7 @@ class UserController extends Controller {
 
     public function __construct() {
         $this->getModel('user');
+        $this->getCurrentUser();
     }
 
     private function getCurrentUser() {
@@ -21,7 +22,7 @@ class UserController extends Controller {
     }
 
     private function loggedIn() {
-        if ($this->getCurrentUser() && $_SESSION['auth'] === $this->user->uid)
+        if ($this->getCurrentUser() && isset($_SESSION['auth']) && $_SESSION['auth'] === $this->user->uid)
             return TRUE;
         return FALSE;
     }
@@ -36,7 +37,6 @@ class UserController extends Controller {
         unset($this->user);
         unset($_SESSION['auth']);
         unset($_SESSION['user']);
-        return $this->login('Successfully logged out.');
     }
 
     public function auth() {
@@ -96,12 +96,9 @@ class UserController extends Controller {
         $this->user->push();        
 
         $to = htmlspecialchars($this->user->email);
-        $from = 'noreply@camagru.com';
         $subject = 'Camagru: Confirm your email';
         $message = "Hi {$this->user->firstName},<br><br>Please confirm your email address by clicking the link below:<br><br><a href=\"http://localhost:8080/user/confirm/{$this->user->email}/{$this->user->registration}\">Confirm Email</a><br><br>Best,<br>The Camagru Team";
-        $headers = "From: " . $from . "\r\n";
-        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-        mail($to, $subject, $message, $headers);
+        App::email($to, $subject, $message);
         return $this->unconfirmedEmail();
     }
 
@@ -124,13 +121,13 @@ class UserController extends Controller {
     }
 
     public function myAccount($error = '') {
-        if (!loggedIn())
+        if (!($this->getCurrentUser()))
             return $this->login();
-        $this->displayView('user/myAccount', ['error' => $error]);
+        $this->displayView('user/myAccount', ['user' => $this->user, 'error' => $error]);
     }
 
     public function changeUser() {
-        if (!loggedIn())
+        if (!($this->getCurrentUser()))
             return $this->login();
         if (isset($_POST['Submit']) && $_POST['Submit'] === 'Change Email' && isset($_POST['email'])) {
             if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -161,6 +158,44 @@ class UserController extends Controller {
             $this->user->push();
             return $this->myAccount('Name changed successfully.');
         }
+        else if (isset($_POST['Submit']) && $_POST['Submit'] === 'Delete Account') {
+            $this->user->delete();
+            $this->logout();
+            return $this->login('User successfully deleted.');
+        }
     }
+
+    public function passwordReset($error = '') {
+        displayView('user/passwordReset', ['error' => $error]);
+    }
+
+    public function sendResetEmail() {
+        if (isset($_POST['email'])) {
+            if ($this->user = User::find($_POST['email'])) {
+                $this->user->registration = hash("md5", date(DateTime::W3C));
+                $this->user->push();
+
+                $to = htmlspecialchars($_POST['email']);
+                $subject = 'Camagru: Password reset';
+                $message = "Hi {$this->user->firstName},<br><br>You can reset your password by clicking the link below:<br><br><a href=\"http://localhost:8080/user/reset/{$this->user->email}/{$this->user->registration}\">Reset Password/a><br><br>Best,<br>The Camagru Team";
+                App::email($to, $subject, $message);
+                return $this->passwordReset('Check your email for a link to reset your password.');
+            }
+        }
+    }
+
+    public function reset($email, $key) {
+        if (isset($email, $key) && ($this->user = User::find($email)) && strcmp($this->user->registration, $key) === 0) {
+            $_SESSION['user'] = $this->user->uid;
+            return $this->changePassword();
+        }
+        return $this->passwordReset('An error occurred.');
+    }
+
+    public function changePassword() {
+        displayView('user/changePassword', ['error' => $error]);        
+    }
+
+    
 }
 ?>

@@ -43,6 +43,13 @@ class App {
     public static function go($url) {
         header('Location: ' . self::link($url));
     }
+
+    public static function email($to, $subject, $message) {
+        $headers = "From: noreply@camagru.com\r\n";
+        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+        mail($to, $subject, $message, $headers);
+    }
+
 }
 
 ?>

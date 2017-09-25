@@ -48,14 +48,17 @@ error_reporting(E_ALL);
 // echo $test->controller;
 // print_r($test);
 
-// require_once('app/core/Controller.class.php');
-// require_once('app/core/Db.class.php');
-// require_once('app/models/User.class.php');
-// require_once('app/controllers/UserController.class.php');
+require_once('app/core/Controller.class.php');
+require_once('app/core/Db.class.php');
+require_once('app/models/User.class.php');
+require_once('app/controllers/UserController.class.php');
 
-// $controller = new UserController();
+$controller = new UserController();
 
-date_default_timezone_set("Europe/Paris");
-echo hash("md5", date(DateTime::W3C));
+$controller->myAccount();
+
+// date_default_timezone_set("Europe/Paris");
+// echo hash("md5", date(DateTime::W3C));
+
 
 ?>
