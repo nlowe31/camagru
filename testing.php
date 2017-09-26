@@ -50,12 +50,15 @@ error_reporting(E_ALL);
 
 require_once('app/core/Controller.class.php');
 require_once('app/core/Db.class.php');
+require_once('app/core/App.class.php');
 require_once('app/models/User.class.php');
 require_once('app/controllers/UserController.class.php');
 
-$controller = new UserController();
+// $controller = new UserController();
 
-$controller->myAccount();
+App::email('nlowe31@gmail.com', 'Testing', '123');
+
+// $controller->myAccount();
 
 // date_default_timezone_set("Europe/Paris");
 // echo hash("md5", date(DateTime::W3C));

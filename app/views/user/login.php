@@ -4,4 +4,6 @@
     <label for="email">Email: </label><input type="text" name="email" /><br />
     <label for="password">Password: </label><input type="password" name="password" /><br />
     <input type="submit" name="Login" value="Login" />
+
+    <p><a href="/user/passwordResetRequest"><i>Forgot password?</i></a></p>
 </form>

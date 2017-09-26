@@ -52,7 +52,7 @@ class UserController extends Controller {
         return $this->login();
     }
 
-    public function loginSuccess() {
+    private function loginSuccess() {
         if (!($this->getCurrentUser())) {
             unset($_SESSION['user']);
             return $this->login();            
@@ -93,7 +93,7 @@ class UserController extends Controller {
         if (!($this->getCurrentUser()) || $this->user->confirmed == 1)
             return $this->login();
         $this->user->registration = hash("md5", date(DateTime::W3C));
-        $this->user->push();        
+        $this->user->push();
 
         $to = htmlspecialchars($this->user->email);
         $subject = 'Camagru: Confirm your email';
@@ -165,12 +165,12 @@ class UserController extends Controller {
         }
     }
 
-    public function passwordReset($error = '') {
-        displayView('user/passwordReset', ['error' => $error]);
+    public function passwordResetRequest($error = '') {
+        $this->displayView('user/passwordResetRequest', ['error' => $error]);
     }
 
-    public function sendResetEmail() {
-        if (isset($_POST['email'])) {
+    public function sendResetRequestEmail() {
+        if (isset($_POST['Submit'], $_POST['email']) && $_POST['Submit'] === 'Reset Password') {
             if ($this->user = User::find($_POST['email'])) {
                 $this->user->registration = hash("md5", date(DateTime::W3C));
                 $this->user->push();
@@ -179,12 +179,12 @@ class UserController extends Controller {
                 $subject = 'Camagru: Password reset';
                 $message = "Hi {$this->user->firstName},<br><br>You can reset your password by clicking the link below:<br><br><a href=\"http://localhost:8080/user/reset/{$this->user->email}/{$this->user->registration}\">Reset Password/a><br><br>Best,<br>The Camagru Team";
                 App::email($to, $subject, $message);
-                return $this->passwordReset('Check your email for a link to reset your password.');
+                return $this->passwordResetRequest('Check your email for a link to reset your password.');
             }
         }
     }
 
-    public function reset($email, $key) {
+    public function resetPassword($email, $key) {
         if (isset($email, $key) && ($this->user = User::find($email)) && strcmp($this->user->registration, $key) === 0) {
             $_SESSION['user'] = $this->user->uid;
             return $this->changePassword();
@@ -192,10 +192,24 @@ class UserController extends Controller {
         return $this->passwordReset('An error occurred.');
     }
 
-    public function changePassword() {
-        displayView('user/changePassword', ['error' => $error]);        
+    private function changePassword() {
+        if (!($this->getCurrentUser()))
+            return $this->passwordReset('An error occurred.');            
+        $this->displayView('user/changePassword', ['error' => $error]);
     }
 
-    
+    public function newPassword() {
+        if (!($this->getCurrentUser()))
+            return $this->getCurrentUser('An error occurred.');
+        if (isset($_POST['Submit']) && $_POST['Submit'] === 'Change Password' && isset($_POST['password'], $_POST['confirm'])) {
+            if ($_POST['password'] === $_POST['confirm']) {
+                $this->user->setPassword($_POST['password']);
+                $this->user->push();
+                return $this->loginSuccess('Password changed successfully.');
+            }
+            else
+                return $this->changePassword('The passwords entered do not match one another.');
+        }
+    }
 }
 ?>
