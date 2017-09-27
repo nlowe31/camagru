@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75a3f672-a7ea-4fa3-866e-15c002b7a1d3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/user/changePassword.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/user/passwordResetRequest.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/UserController.class.php" afterPath="$PROJECT_DIR$/app/controllers/UserController.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user/login.php" afterPath="$PROJECT_DIR$/app/views/user/login.php" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -280,12 +276,12 @@
       <workItem from="1505123322649" duration="1750000" />
       <workItem from="1505130669584" duration="116000" />
       <workItem from="1506375299093" duration="1065000" />
-      <workItem from="1506445878115" duration="535000" />
+      <workItem from="1506445878115" duration="603000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5476000" />
+    <option name="totallyTimeSpent" value="5544000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">

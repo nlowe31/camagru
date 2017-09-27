@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS posts (
     `pid` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `uid` int(11) NOT NULL,
+    `src` varchar(50),
     `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     KEY (`uid`),
     CONSTRAINT `posts_uid` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE

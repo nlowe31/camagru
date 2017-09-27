@@ -34,27 +34,39 @@ class Db {
 	}
 
 	public static function insert($sql, $values) {
+		self::get();
 		$stmt = self::prepare($sql, $values);
 		return self::$instance->lastInsertId();
 	}
 
 	public static function update($sql, $values) {
+		self::get();
 		if ($stmt = self::prepare($sql, $values))
 			return $stmt->rowCount();
 		return FALSE;
 	}
 
 	public static function select($sql, $values) {
+		self::get();
 		return self::prepare($sql, $values);
 	}
 
+	public static function select_array($sql, $values) {
+		self::get();
+		if ($stmt = self::prepare($sql, $values))
+            return $stmt->fetchAll();
+		return FALSE;
+	}
+
 	public static function select_object($sql, $values, $object) {
+		self::get();
 		if ($stmt = self::prepare($sql, $values))
             return $stmt->fetchObject($object);
 		return FALSE;
 	}
 
 	public static function select_one($sql, $values) {
+		self::get();
 		if ($stmt = self::prepare($sql, $values))
 			return $stmt->fetch();
 		return FALSE;	
