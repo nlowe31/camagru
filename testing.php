@@ -52,16 +52,31 @@ require_once('app/core/Controller.class.php');
 require_once('app/core/Db.class.php');
 require_once('app/core/App.class.php');
 require_once('app/models/User.class.php');
+require_once('app/models/Post.class.php');
 require_once('app/controllers/UserController.class.php');
 
 // $controller = new UserController();
 
-App::email('nlowe31@gmail.com', 'Testing', '123');
+// App::email('nlowe31@gmail.com', 'Testing', '123');
 
 // $controller->myAccount();
 
 // date_default_timezone_set("Europe/Paris");
 // echo hash("md5", date(DateTime::W3C));
+
+// $post = Post::get(4);
+// echo $post->comments . PHP_EOL;
+// print_r($post->getComments());
+
+$all = Post::getAll();
+
+// foreach($all as $post) {
+//     print_r($post);
+// }
+
+for($i = 0; $i < 2; $i++){
+    print_r($all->fetch());
+}
 
 
 ?>

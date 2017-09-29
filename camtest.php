@@ -2,20 +2,18 @@
 <html>
 <head>
 <style>
-#photobooth {
-    width: 800px;
-    height: 600px;
-}
-#id {
-    margin: auto;
+#preview, #still {
+    transform: scaleX(-1);
 }
 </style>
 </head>
 <body>
 
 <div id="photobooth">
-    <p id="message">Script failed to load.</p>
-    <video id="preview" width="400" height="300"></video>
+    <video id="preview"></video>
+    <canvas id="canvas" style="display:none;"></canvas>
+    <button id="shutter">Take Photo</button>
+    <img src="http://placekitten.com.s3.amazonaws.com/homepage-samples/408/287.jpg" id="still">
 </div>
 
 <script src="/public/js/cam.js"></script>
