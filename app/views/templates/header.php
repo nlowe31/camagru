@@ -12,4 +12,4 @@
             <a href="#"><img src="/public/resources/camagru-logo.png" class="header_item" id="logo" /></a>
             <!--<p class="header_item">Camagru</p>-->
         </div>
-        <div id="content">
+        <div id="content">  
