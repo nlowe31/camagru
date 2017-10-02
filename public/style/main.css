@@ -13,6 +13,7 @@ a, a:visited, a:hover, a:active {
 #container {
     position: absolute;
     background-color: #fafafa;
+    width: 100%;
 }
 
 #header {
@@ -29,20 +30,32 @@ a, a:visited, a:hover, a:active {
     width: 100%;
 }
 
-.header_item {
-    /*position: absolute;*/
-    height: 4em;
-    margin: 2em auto 2em;
-    /*margin: auto;*/
+#header_container {
+    position: relative;
+    width: 80%;
+    height: inherit;
+    margin: auto;
+    vertical-align: middle;
+}
+
+#header_icon_tray {
+    float: right;
+}
+
+.header_icon {
+    height: 1.4em;
+    margin: 2.3em 0.5em;
 }
 
 #logo {
+    height: 4em;
+    margin: 1em auto 1em;
     float: left;
 }
 
 #content {
-    width: 100%;
-    margin: 6em auto 0;
+    width: 80%;
+    margin: 8em auto 0;
     padding: 0;
 }
 

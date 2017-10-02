@@ -8,6 +8,10 @@ class PagesController extends Controller {
     public function error() {
         $this->displayView('pages/error');
     }
+
+    public function test() {
+        $this->displayView('pages/test');
+    }
 }
 
 ?>
