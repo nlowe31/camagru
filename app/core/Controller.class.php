@@ -11,7 +11,7 @@ class Controller {
     }
 
     protected function footer() {
-        require_once('app/views/templates/footer.php');        
+        require_once('app/views/templates/footer.php');   
     }
 
     protected function displayView($view, $data = []) {
