@@ -6,6 +6,8 @@ session_start();
 date_default_timezone_set("Europe/Paris");
 require_once('app/init.php');
 
+define('PORT', '8080');
+
 $app = new App;
 
 ?>

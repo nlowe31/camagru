@@ -37,11 +37,11 @@ class App {
     }
 
     public static function link($url) {
-        return ($_SERVER['SERVER_NAME'] . '/' . $url);
+        return ('http://' . $_SERVER['SERVER_NAME'] . ':' . PORT . '/' . $url);
     }
 
     public static function go($url) {
-        header('Location: ' . self::link($url));
+        header('Location: ' . self::link($url), 301);
     }
 
     public static function email($to, $subject, $message) {

@@ -37,6 +37,7 @@ class UserController extends Controller {
         unset($this->user);
         unset($_SESSION['auth']);
         unset($_SESSION['user']);
+        App::go('user/login');
     }
 
     public function auth() {
@@ -60,9 +61,11 @@ class UserController extends Controller {
         if ($this->user->confirmed == 0)
             return $this->unconfirmedEmail();
         $_SESSION['auth'] = $this->user->uid;
-        echo "User {$this->user->firstName} {$this->user->lastName} currently logged in.\n";
+        // echo "User {$this->user->firstName} {$this->user->lastName} currently logged in.\n";
         // echo "User {$_SESSION['user']->firstName} {$_SESSION['user']->lastName} logged in successfully.\n";
-        $this->displayView('user/loginSuccess');
+        App::go('pages/test');
+        // echo App::link('pages/test');
+        // header('Location: ' . App::link('pages/test'));
     }
     
     public function signup($error = '') {
@@ -74,7 +77,7 @@ class UserController extends Controller {
             if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 if ($_POST['password'] === $_POST['confirm']) {
                     if (User::findByEmail($_POST['email']) === FALSE) {
-                        if (User::findByUsername($_POST['username'] === FALSE)) {
+                        if (User::findByUsername($_POST['username']) === FALSE) {
                             if ($this->user = User::create($_POST['email'], $_POST['password'], $_POST['firstName'], $_POST['lastName'])) {
                                 $_SESSION['user'] = $this->user->uid;
                                 return $this->sendConfirmationEmail();

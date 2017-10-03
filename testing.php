@@ -78,6 +78,8 @@ require_once('app/controllers/UserController.class.php');
 //     print_r($all->fetch());
 // }
 
-print_r(User::findByUsername('natelowe'));
+// print_r(User::findByUsername('natelowe'));
+
+App::go('user/myAccount');
 
 ?>

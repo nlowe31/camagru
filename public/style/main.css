@@ -7,6 +7,7 @@ body {
 
 h1, h2, h3, h4, h5 {
     margin: 0.6em;
+    font-weight: normal;
 }
 
 a, a:visited, a:active, a:hover {
@@ -14,9 +15,19 @@ a, a:visited, a:active, a:hover {
     text-decoration: none;
 }
 
-input {
+input[type=text], input[type=email], input[type=password] {
     border: 1px solid #efefef;
-    background-color: inherit;
+    background-color: #fafafa;
+    font-size: 1.2em;
+}
+
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
+    outline: none;
+    border: 1px solid #d2d2d2;
+}
+
+input[type=text]:focus:required:valid, input[type=email]:required:valid, input[type=password]:required:valid {
+    border: 1px solid #9aeea1;
 }
 
 .link {
@@ -39,7 +50,7 @@ input {
     cursor: pointer;
 }
 
-.button:hover{
+.button:hover, .button:focus{
     background-color: #efefef;
     border: 0.2em #efefef solid;
 }
@@ -104,6 +115,11 @@ input {
     border: 1px solid #efefef;
     background-color: white;
     margin: 4em auto;
+}
+
+.login {
+    max-width: 20em;
+    text-align: center;
 }
 
 .box_title {
