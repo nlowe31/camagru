@@ -10,7 +10,7 @@
 // echo (Db::insert('INSERT INTO users (email, firstName) VALUES (?, ?)', ['nlowe31@gmail.com', 'Nate']));
 // echo (Db::insert('UPDATE users SET firstName=? WHERE email=?', ['YES', 'nlowe31@gmail.com']) . "\n");
 // print_r(User::create('aidz', 'lol', 'Yes', 'No'));
-// $current = User::find('aidzz');
+// $current = User::findByEmail('aidzz');
 // echo $current->firstName . "\n";
 // $current->firstName = 'yes';
 // echo $current->firstName . "\n";
@@ -18,7 +18,7 @@
 // print_r(User::get($current->uid));
 
 // print_r(User::create('nate@gmail.com', 'lolol', 'Nate', 'Lowe'));
-// $current = User::find('nate@gmail.com');
+// $current = User::findByEmail('nate@gmail.com');
 // print_r($current->authenticate('lolol'));
 
 // $form = new Form('target="/"');
@@ -34,7 +34,7 @@
 // $_POST['password'] = 'lolol';
 // $_POST['Login'] = 'Login';
 
-// $user = User::find($_POST['email']);
+// $user = User::findByEmail($_POST['email']);
 
 // $userController->auth();
 // // $userController->loginSuccess();
@@ -68,15 +68,16 @@ require_once('app/controllers/UserController.class.php');
 // echo $post->comments . PHP_EOL;
 // print_r($post->getComments());
 
-$all = Post::getAll();
+// $all = Post::getAll();
 
-// foreach($all as $post) {
-//     print_r($post);
+// // foreach($all as $post) {
+// //     print_r($post);
+// // }
+
+// for($i = 0; $i < 2; $i++){
+//     print_r($all->fetch());
 // }
 
-for($i = 0; $i < 2; $i++){
-    print_r($all->fetch());
-}
-
+print_r(User::findByUsername('natelowe'));
 
 ?>

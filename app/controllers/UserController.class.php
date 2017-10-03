@@ -41,7 +41,7 @@ class UserController extends Controller {
 
     public function auth() {
         if (isset($_POST['Login'], $_POST['email'], $_POST['password']) && $_POST['Login'] == 'Login') {
-            if ($this->user = User::find($_POST['email'])) {
+            if ($this->user = User::findByEmail($_POST['email'])) {
                 if ($this->user->authenticate($_POST['password']) === TRUE) {
                     $_SESSION['user'] = $this->user->uid;
                     return $this->loginSuccess();
@@ -70,17 +70,20 @@ class UserController extends Controller {
     }
 
     public function createUser() {
-        if (isset($_POST['Submit'], $_POST['email'], $_POST['firstName'], $_POST['lastName'], $_POST['password'], $_POST['confirm']) && $_POST['Submit'] == 'Sign Up') {
+        if (isset($_POST['Submit'], $_POST['username'], $_POST['email'], $_POST['firstName'], $_POST['lastName'], $_POST['password'], $_POST['confirm']) && $_POST['Submit'] == 'Sign Up') {
             if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 if ($_POST['password'] === $_POST['confirm']) {
-                    if (User::find($_POST['email']) === FALSE) {
-                        if ($this->user = User::create($_POST['email'], $_POST['password'], $_POST['firstName'], $_POST['lastName'])) {
-                            $_SESSION['user'] = $this->user->uid;
-                            return $this->sendConfirmationEmail();
+                    if (User::findByEmail($_POST['email']) === FALSE) {
+                        if (User::findByUsername($_POST['username'] === FALSE)) {
+                            if ($this->user = User::create($_POST['email'], $_POST['password'], $_POST['firstName'], $_POST['lastName'])) {
+                                $_SESSION['user'] = $this->user->uid;
+                                return $this->sendConfirmationEmail();
+                            }
+                            return $this->signup('An unknown error occurred. Please try again later.');
                         }
-                        return $this->signup('An unknown error occurred. Please try again later.');
+                        return $this->signup('That username is already taken, please select another.');
                     }
-                    return $this->signup('A user with this email address already exists.');
+                    return $this->signup('A user with this email address already exists.<br/><a href="/user/passwordResetRequest">Click to reset your password.</a>');
                 }
                 return $this->signup('The passwords entered do not match one another.');
             }
@@ -103,7 +106,7 @@ class UserController extends Controller {
     }
 
     public function confirm($email, $key) {
-        if (isset($email, $key) && ($this->user = User::find($email))) {
+        if (isset($email, $key) && ($this->user = User::findByEmail($email))) {
             if (strcmp($this->user->registration, $key) === 0) {
                 $this->user->confirmed = 1;
                 $this->user->push();
@@ -131,7 +134,7 @@ class UserController extends Controller {
             return $this->login();
         if (isset($_POST['Submit']) && $_POST['Submit'] === 'Change Email' && isset($_POST['email'])) {
             if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-                if (User::find($_POST['email']) === FALSE) {
+                if (User::findByEmail($_POST['email']) === FALSE) {
                     $this->user->email = htmlspecialchars($_POST['email']);
                     $this->user->confirmed = 0;
                     $this->user->push();
@@ -171,7 +174,7 @@ class UserController extends Controller {
 
     public function sendResetRequestEmail() {
         if (isset($_POST['Submit'], $_POST['email']) && $_POST['Submit'] === 'Reset Password') {
-            if ($this->user = User::find($_POST['email'])) {
+            if ($this->user = User::findByEmail($_POST['email'])) {
                 $this->user->registration = hash("md5", date(DateTime::W3C));
                 $this->user->push();
 
@@ -185,7 +188,7 @@ class UserController extends Controller {
     }
 
     public function resetPassword($email, $key) {
-        if (isset($email, $key) && ($this->user = User::find($email)) && strcmp($this->user->registration, $key) === 0) {
+        if (isset($email, $key) && ($this->user = User::findByEmail($email)) && strcmp($this->user->registration, $key) === 0) {
             $_SESSION['user'] = $this->user->uid;
             return $this->changePassword();
         }

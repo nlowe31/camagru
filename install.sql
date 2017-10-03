@@ -4,6 +4,7 @@ USE camagru;
 
 CREATE TABLE IF NOT EXISTS users (
     `uid` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    `username` varchar(50) UNIQUE COLLATE utf8_unicode_ci NOT NULL,    
     `email` varchar(50) UNIQUE COLLATE utf8_unicode_ci NOT NULL,
     `firstName` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
     `lastName` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
