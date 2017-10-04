@@ -54,6 +54,7 @@ require_once('app/core/App.class.php');
 require_once('app/models/User.class.php');
 require_once('app/models/Post.class.php');
 require_once('app/controllers/UserController.class.php');
+require_once('app/controllers/PostController.class.php');
 
 // $controller = new UserController();
 
@@ -80,6 +81,13 @@ require_once('app/controllers/UserController.class.php');
 
 // print_r(User::findByUsername('natelowe'));
 
-App::go('user/myAccount');
+//App::go('user/myAccount');
+
+$poster = new PostController();
+
+$png = file_get_contents('download.png');
+$encoded = base64_encode($png);
+$_POST['image'] = $encoded;
+$poster->upload();
 
 ?>

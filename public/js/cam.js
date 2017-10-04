@@ -1,31 +1,3 @@
-// (function() {
-//     document.getElementById('message').innerHTML = "Script loaded.";
-    
-//     var preview = document.getElementById('preview'),
-//         vendorURL = window.URL || window.webkitURL;
-
-//     navigator.getUserMedia = navigator.getUserMedia || 
-//                             navigator.webkitGetUserMedia || 
-//                             navigator.mozGetUserMedia || 
-//                             navigator.msGetUserMedia;
-    
-//     // if (navigator.getUserMedia()) {
-//         navigator.getUserMedia({
-//             video: true,
-//             audio: false
-//         }, function (stream) {
-//             preview.src = vendorURL.createObjectURL(stream);
-//             video.play();
-//         }, function (error) {
-//             console.log("An error occurred with video playback.");
-//         });
-//     // }
-//     // else {
-//     //     document.getElementById('message').innerText = "Hey! We need access to your webcam in order to take photos. Click Allow on your browser to get going!";
-//     // }
-    
-// })();
-
 (function () {
 
     var streaming = false,
@@ -78,9 +50,6 @@
         canvas.getContext('2d').drawImage(video, 0, 0, width, height);
         var data = canvas.toDataURL('image/png');
         photo.setAttribute('src', data);
-        video.pause();
-        video.src = "";
-        localstream.getTracks()[0].stop();
         video.style.display = 'none';
         photo.style.display = 'block';
         document.querySelector('#camera_active').style.display = 'none';
@@ -92,7 +61,29 @@
         ev.preventDefault();
     }, false);
 
-    document.querySelector('#approve').addEventListener('click', navigator.getMedia(), false);
-    document.querySelector('#disapprove').addEventListener('click', navigator.getMedia(), false);
+    function backToCamera() {
+        video.style.display = 'block';
+        photo.style.display = 'none';
+        document.querySelector('#camera_active').style.display = 'block';
+        document.querySelector('#camera_inactive').style.display = 'none';
+    }
+
+    function savePhoto() {
+        var request = new XMLHttpRequest();
+
+        request.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log('OK');
+                backToCamera();
+            }
+                // document.getElementById('still').src = this.responseText;
+        }
+        request.open("POST", "/post/save", true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.send("image=" + photo.src + "&filter=banana");
+    }
+
+    document.querySelector('#approve').addEventListener('click', savePhoto, false);
+    document.querySelector('#disapprove').addEventListener('click', backToCamera, false);
 
 })();

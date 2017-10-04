@@ -45,8 +45,6 @@ class Post {
     public function removeComment($cid) {
         return Db::insert('DELETE FROM comments WHERE cid=?', [$cid]);
     }
-
-    
 }
 
 ?>
