@@ -44,6 +44,27 @@
         }
     }, false);
 
+    var filter = document.querySelector('#filter');
+    filter.style.width = width + 'px';
+
+    function toggleFilter(e) {
+        var id = e.target.id,
+            filterName = id.split('_')[1],
+            path = '/public/resources/filters/' + filterName + '.png',
+            filter = document.querySelector('#filter');
+        if (filter.src === path) {
+            filter.src = '#';
+        }
+        else {
+            filter.src = path;
+        }
+    }
+
+    var filters = ['banana', 'icecream', 'geek', 'stopsign', 'usa'];
+    filters.forEach(function (element){
+        document.querySelector('#filter_' + element).addEventListener('click', toggleFilter, false);
+    });
+
     function takepicture() {
         canvas.width = width;
         canvas.height = height;
@@ -56,11 +77,6 @@
         document.querySelector('#camera_inactive').style.display = 'block';
     }
 
-    shutter.addEventListener('click', function (ev) {
-        takepicture();
-        ev.preventDefault();
-    }, false);
-
     function backToCamera() {
         video.style.display = 'block';
         photo.style.display = 'none';
@@ -68,11 +84,17 @@
         document.querySelector('#camera_inactive').style.display = 'none';
     }
 
+    shutter.addEventListener('click', function (ev) {
+        takepicture();
+        ev.preventDefault();
+    }, false);
+
+
     function savePhoto() {
         var request = new XMLHttpRequest();
 
         request.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState === 4 && this.status === 200) {
                 console.log('OK');
                 backToCamera();
             }

@@ -3,7 +3,7 @@
     max-width: 35em;
     border: 1px solid #efefef;
     background-color: white;
-    margin: 4em auto;
+    margin: 4em 4em auto;
 }
 
 .post_photo {
@@ -18,6 +18,11 @@
 
 .post_icon {
     height: 1.4em;
+    margin: 0.2em;
+}
+
+.post_icon_large {
+    height: 2.8em;
     margin: 0.2em;
 }
 
@@ -69,4 +74,9 @@
 
 .post_new_comment_icon {
     margin: 0;
+}
+
+.filter_icon{
+    display: inline-block;
+    width: 8em;
 }
