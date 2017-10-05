@@ -11,7 +11,7 @@ class Post {
     public function __construct() {}
     
     public static function create($uid) {
-        return self::get(Db::insert('INSERT INTO posts (uid) VALUES (?, ?)', [$uid]));
+        return self::get(Db::insert('INSERT INTO posts (uid) VALUES (?)', [$uid]));
     }
 
     public static function get($pid) {

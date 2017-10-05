@@ -72,15 +72,14 @@
         var request = new XMLHttpRequest();
 
         request.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState === 4 && this.status === 200) {
                 console.log('OK');
                 backToCamera();
             }
-                // document.getElementById('still').src = this.responseText;
-        }
+        };
         request.open("POST", "/post/save", true);
         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        request.send("image=" + photo.src + "&filter=banana");
+        request.send("filter=banana" + "&image=" + photo.src);
     }
 
     document.querySelector('#approve').addEventListener('click', savePhoto, false);
