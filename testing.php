@@ -79,15 +79,17 @@ require_once('app/controllers/PostController.class.php');
 //     print_r($all->fetch());
 // }
 
-// print_r(User::findByUsername('natelowe'));
+$user = User::findByUsername('nlowe31');
+$user->confirmed = 1;
+$user->push();
 
 //App::go('user/myAccount');
 
-$poster = new PostController();
-
-$png = file_get_contents('download.png');
-$encoded = base64_encode($png);
-$_POST['image'] = $encoded;
-$poster->upload();
+//$poster = new PostController();
+//
+//$png = file_get_contents('download.png');
+//$encoded = base64_encode($png);
+//$_POST['image'] = $encoded;
+//$poster->upload();
 
 ?>

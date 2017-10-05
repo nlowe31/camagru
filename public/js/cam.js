@@ -98,11 +98,10 @@
                 console.log('OK');
                 backToCamera();
             }
-                // document.getElementById('still').src = this.responseText;
-        }
+        };
         request.open("POST", "/post/save", true);
         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        request.send("image=" + photo.src + "&filter=banana");
+        request.send("filter=banana" + "&image=" + photo.src);
     }
 
     document.querySelector('#approve').addEventListener('click', savePhoto, false);
