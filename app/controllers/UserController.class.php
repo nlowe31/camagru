@@ -28,7 +28,7 @@ class UserController extends Controller {
     }
     
     public function login($error = '') {
-        if (isset($_SESSION['user']))
+        if (isset($_SESSION['user']) && isset($_SESSION['auth']))
             return $this->loginSuccess();
         $this->displayView('user/login', ['error' => $error]);
     }
@@ -78,7 +78,7 @@ class UserController extends Controller {
                 if ($_POST['password'] === $_POST['confirm']) {
                     if (User::findByEmail($_POST['email']) === FALSE) {
                         if (User::findByUsername($_POST['username']) === FALSE) {
-                            if ($this->user = User::create($_POST['email'], $_POST['password'], $_POST['firstName'], $_POST['lastName'])) {
+                            if ($this->user = User::create($_POST['username'], $_POST['email'], $_POST['password'], $_POST['firstName'], $_POST['lastName'])) {
                                 $_SESSION['user'] = $this->user->uid;
                                 return $this->sendConfirmationEmail();
                             }

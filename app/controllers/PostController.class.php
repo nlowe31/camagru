@@ -20,15 +20,18 @@ class PostController extends Controller {
         $img = imagecreatefromstring($decodedData);
         imageflip($img, IMG_FLIP_HORIZONTAL);
 
-
-        $filter_loc = 'filters/' . $_POST['filter'];
+        $filter_loc = 'public/filters/resources/filters/' . htmlspecialchars($_POST['filter']);
         if (file_exists($filter_loc)) {
             $filter_size = getimagesize($filter_loc);
             $filter = imagecreatefrompng($filter_loc);
         }
 //        if ($img === FALSE)
 //            echo 'Problem!';
-        $filename = 'userData/test.png';
+
+        if (!($post = Post::create(1)))
+            echo 'Problem!!';
+
+        $filename = 'userData/' . $post->pid . '.png';
         imagepng($img, $filename);
     }
 }

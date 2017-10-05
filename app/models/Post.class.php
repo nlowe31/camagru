@@ -10,12 +10,19 @@ class Post {
 
     public function __construct() {}
     
-    public static function create($uid, $src) {
-        return self::get(Db::insert('INSERT INTO posts (uid, src) VALUES (?, ?)', [$uid, $src]));
+    public static function create($uid) {
+        return self::get(Db::insert('INSERT INTO posts (uid) VALUES (?, ?)', [$uid]));
     }
 
     public static function get($pid) {
         return Db::select_object('SELECT p.*, COUNT(DISTINCT l.lid) AS likes, COUNT(DISTINCT c.cid) AS comments FROM posts p LEFT JOIN likes l ON p.pid=l.pid LEFT JOIN comments c ON p.pid=c.pid WHERE p.pid=? GROUP BY p.pid', [$pid], 'Post');
+    }
+
+     public function push() {
+        $count = Db::update('UPDATE posts SET uid=?, src=? WHERE pid=?', [$this->uid, $this->src, $this->pid]);
+        if ($count > 0)
+            return TRUE;
+        return FALSE;
     }
 
     public static function getAll() {
