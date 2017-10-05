@@ -1,9 +1,9 @@
 <?php
-require_once('Db.class.php');
+require_once('app/core/Db.class.php');
 
 echo "Reading configuration...\n";
 
-$config = parse_ini_file('dbConfig.ini');
+$config = parse_ini_file('app/core/dbConfig.ini');
 
 echo "Connecting to database...\n";
 
@@ -14,7 +14,7 @@ $options = [
 ];
 
 try {
-    $db = new PDO("mysql:host={$config['host']};unix_socket=/Applications/MAMP/tmp/mysql/mysql.sock;charset=utf8mb4", $config['username'], $config['password'], $options);
+    $db = new PDO("mysql:host={$config['host']};port={$config['port']};charset={$config['charset']};", $config['username'], $config['password'], $options);
 } catch (PDOException $e) {
     die($e->getMessage());
 }
@@ -24,6 +24,7 @@ echo "Connection successful.\n";
 $sql = file_get_contents('install.sql');
 try {
     $db->exec($sql);
+    echo "Database created successfully.\n";
 }
 catch (PDOException $e) {
     die($e->getMessage());
