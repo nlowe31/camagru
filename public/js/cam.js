@@ -6,7 +6,9 @@
         photo = document.querySelector('#still'),
         shutter = document.querySelector('#shutter'),
         width = document.querySelector('#photobooth').offsetwidth || document.querySelector('#photobooth').clientWidth,
-        height = 0;
+        height = 0,
+        pid = undefined,
+        filter = undefined;
 
     navigator.getMedia = (navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
@@ -44,33 +46,58 @@
         }
     }, false);
 
-    var filter = document.querySelector('#filter');
-    filter.style.width = width + 'px';
+    var filters = ['banana', 'icecream', 'geek', 'stopsign', 'usa'];
 
     function toggleFilter(e) {
         var id = e.target.id,
-            filterName = id.split('_')[1],
-            path = '/public/resources/filters/' + filterName + '.png',
-            filter = document.querySelector('#filter');
-        if (filter.src === path) {
-            filter.src = '#';
+            filterName = id.split('_')[1];
+        if (filters.indexOf(filterName) !== -1) {
+            if (filter === undefined) {
+                shutter.addEventListener('click', function (e) {
+                    takePicture();
+                    e.preventDefault();
+                }, false);
+            }
+            filter = filterName;
+            document.getElementById(id).class = 'post_icon_selected';
         }
-        else {
-            filter.src = path;
-        }
+        console.log(filter);
     }
 
-    var filters = ['banana', 'icecream', 'geek', 'stopsign', 'usa'];
     filters.forEach(function (element){
         document.querySelector('#filter_' + element).addEventListener('click', toggleFilter, false);
     });
 
-    function takepicture() {
+    function takePicture() {
+        console.log("Filter name: " + filter);
         canvas.width = width;
         canvas.height = height;
         canvas.getContext('2d').drawImage(video, 0, 0, width, height);
         var data = canvas.toDataURL('image/png');
-        photo.setAttribute('src', data);
+
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                console.log('OK');
+                if (request.responseText !== 'ERROR') {
+                    pid = request.responseText;
+                    console.log(pid + "\n");
+                    showPhoto();
+                }
+            }
+        };
+        request.open("POST", "/post/save", true);
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.send("filter=" + filter + "&image=" + data);
+    }
+
+    function showPhoto() {
+        photo.src = '#';
+        if (pid === undefined) {
+            return ;
+        }
+        console.log("showPhoto(" + pid + ")\n");
+        photo.src = '/userData/' + pid + '.png';
         video.style.display = 'none';
         photo.style.display = 'block';
         document.querySelector('#camera_active').style.display = 'none';
@@ -84,14 +111,19 @@
         document.querySelector('#camera_inactive').style.display = 'none';
     }
 
-    shutter.addEventListener('click', function (ev) {
-        takepicture();
-        ev.preventDefault();
+    document.querySelector('#approve').addEventListener('click', function (e) {
+        decide(e);
+        e.preventDefault();
     }, false);
 
+    document.querySelector('#disapprove').addEventListener('click', function (e) {
+        decide(e);
+        e.preventDefault();
+    }, false);
 
-    function savePhoto() {
-        var request = new XMLHttpRequest();
+    function decide(e) {
+        var id = e.target.id,
+            request = new XMLHttpRequest();
 
         request.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
@@ -99,12 +131,8 @@
                 backToCamera();
             }
         };
-        request.open("POST", "/post/save", true);
+        request.open("POST", "/post/decide", true);
         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        request.send("filter=banana" + "&image=" + photo.src);
+        request.send("pid=" + pid + "&decision=" + id);
     }
-
-    document.querySelector('#approve').addEventListener('click', savePhoto, false);
-    document.querySelector('#disapprove').addEventListener('click', backToCamera, false);
-
 })();

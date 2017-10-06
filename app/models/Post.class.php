@@ -52,6 +52,17 @@ class Post {
     public function removeComment($cid) {
         return Db::insert('DELETE FROM comments WHERE cid=?', [$cid]);
     }
+
+    public function delete() {
+        $filename = substr($this->src, 1);
+        if (file_exists($filename)) {
+            unlink($filename);
+        }
+        $count = Db::update('DELETE FROM posts WHERE pid=?', [$this->pid]);
+        if ($count > 0)
+            return TRUE;
+        return FALSE;
+    }
 }
 
 ?>

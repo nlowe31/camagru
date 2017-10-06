@@ -79,9 +79,9 @@ require_once('app/controllers/PostController.class.php');
 //     print_r($all->fetch());
 // }
 
-$user = User::findByUsername('nlowe31');
-$user->confirmed = 1;
-$user->push();
+//$user = User::findByUsername('nlowe31');
+//$user->confirmed = 1;
+//$user->push();
 
 //App::go('user/myAccount');
 
@@ -91,5 +91,8 @@ $user->push();
 //$encoded = base64_encode($png);
 //$_POST['image'] = $encoded;
 //$poster->upload();
+
+$post = Post::get(24);
+$post->delete();
 
 ?>

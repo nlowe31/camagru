@@ -12,28 +12,45 @@ class PostController extends Controller {
     }
 
     public function save() {
-        if (!isset($_POST['image'], $_POST['filter'], $_SESSION['auth']))
-            return;
-        $encodedData = str_replace('data:image/png;base64,', '', $_POST['image']);
-        $encodedData = str_replace(' ', '+', $encodedData);
-        $decodedData = base64_decode($encodedData);
-        $img = imagecreatefromstring($decodedData);
-        imageflip($img, IMG_FLIP_HORIZONTAL);
-        $img = imagescale($img, 500);
+        if (isset($_POST['image'], $_POST['filter'], $_SESSION['auth'])) {
+            $encodedData = str_replace('data:image/png;base64,', '', $_POST['image']);
+            $encodedData = str_replace(' ', '+', $encodedData);
+            $decodedData = base64_decode($encodedData);
+            $img = imagecreatefromstring($decodedData);
+//            imageflip($img, IMG_FLIP_HORIZONTAL);
+            $img = imagescale($img, 500);
 
-        $filter_loc = 'public/resources/filters/' . htmlspecialchars($_POST['filter']) . '.png';
-        if (file_exists($filter_loc)) {
-            $filter = imagecreatefrompng($filter_loc);
-            $filter = imagescale($filter, 500);
-            imagecopy($img, $filter, 0, 0, 0, 0, imagesx($filter) - 1, imagesy($filter) - 1);
-        }
-        if ($post = Post::create($_SESSION['auth'])) {
-            $filename = 'userData/' . $post->pid . '.png';
-            if (imagepng($img, $filename)) {
-                $post->src = '/' . $filename;
-                $post->push();
+            $filter_loc = 'public/resources/filters/' . htmlspecialchars($_POST['filter']) . '.png';
+            if (file_exists($filter_loc)) {
+                $filter = imagecreatefrompng($filter_loc);
+                $filter = imagescale($filter, 500);
+                imagecopy($img, $filter, 0, 0, 0, 0, imagesx($filter) - 1, imagesy($filter) - 1);
+            }
+            if ($post = Post::create($_SESSION['auth'])) {
+                $filename = 'userData/' . $post->pid . '.png';
+                if (imagepng($img, $filename)) {
+                    $post->src = '/' . $filename;
+                    $post->push();
+                    echo $post->pid;
+                    return;
+                }
             }
         }
+        echo 'ERROR';
+    }
+
+    public function decide() {
+        if (isset($_POST['pid'], $_POST['decision'], $_SESSION['auth'])) {
+            $post = Post::get($_POST['pid']);
+            if ($post->uid === $_SESSION['auth']) {
+                if ($_POST['decision'] !== 'approve') {
+                    $post->delete();
+                    echo 'SUCCESS';
+                    return ;
+                }
+            }
+        }
+        echo 'ERROR';
     }
 
     private function resize($original, $size)

@@ -21,6 +21,12 @@
     margin: 0.2em;
 }
 
+.post_icon_selected {
+    height: 1.4em;
+    margin: 0.2em;
+    border-bottom: 1px solid #efefef;
+}
+
 .post_icon_large {
     height: 2.8em;
     margin: 0.2em;
