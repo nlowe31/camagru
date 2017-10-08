@@ -26,6 +26,12 @@ class Db {
 		return self::$instance;
 	}
 
+    public static function query($query) {
+        self::get();
+        $stmt = self::$instance->query($query);
+        return $stmt;
+    }
+
 	public static function prepare($sql, $values) {
 		self::get();
 		$stmt = self::$instance->prepare($sql);
@@ -35,7 +41,7 @@ class Db {
 
 	public static function insert($sql, $values) {
 		self::get();
-		$stmt = self::prepare($sql, $values);
+		self::prepare($sql, $values);
 		return self::$instance->lastInsertId();
 	}
 
@@ -51,33 +57,33 @@ class Db {
 		return self::prepare($sql, $values);
 	}
 
-	public static function select_array($sql, $values) {
-		self::get();
-		if ($stmt = self::prepare($sql, $values))
-            return $stmt->fetchAll();
-		return FALSE;
-	}
+    public static function select_one($sql, $values) {
+        self::get();
+        if ($stmt = self::prepare($sql, $values))
+            return $stmt->fetch();
+        return FALSE;
+    }
 
-	public static function select_object($sql, $values, $object) {
-		self::get();
-		if ($stmt = self::prepare($sql, $values))
+    public static function select_one_object($sql, $values, $object) {
+        self::get();
+        if ($stmt = self::prepare($sql, $values))
             return $stmt->fetchObject($object);
-		return FALSE;
-	}
+        return FALSE;
+    }
 
-	public static function select_one($sql, $values) {
-		self::get();
-		if ($stmt = self::prepare($sql, $values))
-			return $stmt->fetch();
-		return FALSE;	
-	}
+    public static function select_all($sql, $values) {
+        self::get();
+        if ($stmt = self::prepare($sql, $values))
+            return $stmt->fetchAll();
+        return FALSE;
+    }
 
-	public static function select_all($table) {
-		self::get();
-		$stmt = self::$instance->query("SELECT * FROM $table");
-		return $stmt;
-	}
-
+    public static function select_all_object($sql, $values, $object) {
+        self::get();
+        if ($stmt = self::prepare($sql, $values))
+            return $stmt->fetchAll(PDO::FETCH_CLASS, $object);
+        return FALSE;
+    }
 }
 
 ?>

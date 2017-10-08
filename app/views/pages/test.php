@@ -1,5 +1,5 @@
 <div class="post">
-    <img class="post_photo" src="/public/uploads/eiffel.JPG">
+    <img class="post_photo" src="/userData/eiffel.JPG">
     <div class="post_bottom">
         <div class="post_icon_tray">
             <a href="#"><img class="post_icon" title="Like" src="/public/resources/icons/heart.svg"/></a>
@@ -23,7 +23,7 @@
 </div>
 
 <div class="post">
-    <img class="post_photo" src="/public/uploads/eiffel.JPG">
+    <img class="post_photo" src="/userData/eiffel.JPG">
     <div class="post_bottom">
         <div class="post_icon_tray">
             <a href="#"><img class="post_icon" title="Like" src="/public/resources/icons/heart.svg"/></a>

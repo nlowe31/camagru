@@ -1,11 +1,11 @@
 (function () {
 
     var streaming = false,
-        video = document.querySelector('#preview'),
-        canvas = document.querySelector('#canvas'),
-        photo = document.querySelector('#still'),
-        shutter = document.querySelector('#shutter'),
-        width = document.querySelector('#photobooth').offsetwidth || document.querySelector('#photobooth').clientWidth,
+        video = $('#preview'),
+        canvas = $('#canvas'),
+        photo = $('#still'),
+        shutter = $('#shutter'),
+        width = $('#photobooth').offsetwidth || $('#photobooth').clientWidth,
         height = 0,
         pid = undefined,
         filter = undefined;
@@ -59,13 +59,13 @@
                 }, false);
             }
             filter = filterName;
-            document.getElementById(id).class = 'post_icon_selected';
+            _(id).className = 'post_icon_selected';
         }
         console.log(filter);
     }
 
     filters.forEach(function (element){
-        document.querySelector('#filter_' + element).addEventListener('click', toggleFilter, false);
+        $('#filter_' + element).addEventListener('click', toggleFilter, false);
     });
 
     function takePicture() {
@@ -73,22 +73,33 @@
         canvas.width = width;
         canvas.height = height;
         canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-        var data = canvas.toDataURL('image/png');
+        var data = canvas.toDataURL('image/png'),
+            request = "filter=" + filter + "&image=" + data;
 
-        var request = new XMLHttpRequest();
-        request.onreadystatechange = function () {
+        ajax("/post/save", request, function () {
+            console.log("ajax: " + this.readyState + "\n");
             if (this.readyState === 4 && this.status === 200) {
-                console.log('OK');
-                if (request.responseText !== 'ERROR') {
-                    pid = request.responseText;
-                    console.log(pid + "\n");
-                    showPhoto();
-                }
+                if (this.responseText !== 'ERROR')
+                    pid = this.responseText;
+                console.log(pid + "\n");
+                showPhoto();
             }
-        };
-        request.open("POST", "/post/save", true);
-        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        request.send("filter=" + filter + "&image=" + data);
+        });
+
+        // var request = new XMLHttpRequest();
+        // request.onreadystatechange = function () {
+        //     if (this.readyState === 4 && this.status === 200) {
+        //         console.log('OK');
+        //         if (request.responseText !== 'ERROR') {
+        //             pid = request.responseText;
+        //             console.log(pid + "\n");
+        //             showPhoto();
+        //         }
+        //     }
+        // };
+        // request.open("POST", "/post/save", true);
+        // request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // request.send("filter=" + filter + "&image=" + data);
     }
 
     function showPhoto() {
@@ -100,23 +111,23 @@
         photo.src = '/userData/' + pid + '.png';
         video.style.display = 'none';
         photo.style.display = 'block';
-        document.querySelector('#camera_active').style.display = 'none';
-        document.querySelector('#camera_inactive').style.display = 'block';
+        $('#camera_active').style.display = 'none';
+        $('#camera_inactive').style.display = 'block';
     }
 
     function backToCamera() {
         video.style.display = 'block';
         photo.style.display = 'none';
-        document.querySelector('#camera_active').style.display = 'block';
-        document.querySelector('#camera_inactive').style.display = 'none';
+        $('#camera_active').style.display = 'block';
+        $('#camera_inactive').style.display = 'none';
     }
 
-    document.querySelector('#approve').addEventListener('click', function (e) {
+    $('#approve').addEventListener('click', function (e) {
         decide(e);
         e.preventDefault();
     }, false);
 
-    document.querySelector('#disapprove').addEventListener('click', function (e) {
+    $('#disapprove').addEventListener('click', function (e) {
         decide(e);
         e.preventDefault();
     }, false);

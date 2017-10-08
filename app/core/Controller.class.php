@@ -20,6 +20,11 @@ class Controller {
         require_once('app/views/' . $view . '.php');
         $this->footer();
     }
+
+    protected function callView($view, $data = []) {
+        extract($data);
+        require_once('app/views/' . $view . '.php');
+    }
 }
 
 ?>

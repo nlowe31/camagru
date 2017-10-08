@@ -1,7 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nlowe
- * Date: 10/8/17
- * Time: 6:36 PM
- */
+
+class Comment
+{
+    public $cid;
+    public $pid;
+    public $uid;
+    public $username;
+    public $created;
+    public $text;
+
+    public function __construct() {}
+}

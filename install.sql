@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS posts (
     `uid` int(11) NOT NULL,
     `src` varchar(50),
     `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `confirmed` tinyint(1) NOT NULL DEFAULT 0,
     KEY (`uid`),
     CONSTRAINT `posts_uid` FOREIGN KEY (`uid`) REFERENCES `users` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

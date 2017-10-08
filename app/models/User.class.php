@@ -19,15 +19,15 @@ class User {
     }
 
     public static function get($uid) {
-        return Db::select_object('SELECT * FROM users WHERE uid=?', [$uid], 'User');
+        return Db::select_one_object('SELECT * FROM users WHERE uid=?', [$uid], 'User');
     }
 
     public static function findByEmail($email) {
-        return Db::select_object('SELECT * FROM users WHERE email=?', [$email], 'User');
+        return Db::select_one_object('SELECT * FROM users WHERE email=?', [$email], 'User');
     }
 
     public static function findByUsername($username) {
-        return Db::select_object('SELECT * FROM users WHERE username=?', [$username], 'User');        
+        return Db::select_one_object('SELECT * FROM users WHERE username=?', [$username], 'User');
     }
 
     public function authenticate($password) {

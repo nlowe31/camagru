@@ -1,14 +1,21 @@
 <?php
 
 class PostController extends Controller {
-    private $post;
+    private $paginate = 5;
 
     public function __construct() {
         $this->getModel('post');
+        $this->getModel('comment');
     }
 
     public function create() {
         $this->displayView('post/create');
+    }
+
+    public function all() {
+//        $posts = Post::getSome(100, $this->paginate);
+//        $posts = Post::getAll();
+        $this->displayView('post/index', ['posts' => Post::getAll($this->paginate)]);
     }
 
     public function save() {
@@ -17,7 +24,6 @@ class PostController extends Controller {
             $encodedData = str_replace(' ', '+', $encodedData);
             $decodedData = base64_decode($encodedData);
             $img = imagecreatefromstring($decodedData);
-//            imageflip($img, IMG_FLIP_HORIZONTAL);
             $img = imagescale($img, 500);
 
             $filter_loc = 'public/resources/filters/' . htmlspecialchars($_POST['filter']) . '.png';
@@ -43,7 +49,13 @@ class PostController extends Controller {
         if (isset($_POST['pid'], $_POST['decision'], $_SESSION['auth'])) {
             $post = Post::get($_POST['pid']);
             if ($post->uid === $_SESSION['auth']) {
-                if ($_POST['decision'] !== 'approve') {
+                if ($_POST['decision'] === 'approve') {
+                    $post->confirmed = 1;
+                    $post->push();
+                    echo 'SUCCESS';
+                    return ;
+                }
+                else {
                     $post->delete();
                     echo 'SUCCESS';
                     return ;
@@ -53,18 +65,16 @@ class PostController extends Controller {
         echo 'ERROR';
     }
 
-    private function resize($original, $size)
-    {
-        $width = 400;
+    public function getPosts() {
+        if (!isset($_POST['current']))
+            $_POST['current'] = 0;
+        echo json_encode(Post::getSome($_POST['current'], $this->paginate));
+    }
 
-        $height = ($width * $size[1]) / $size[0];
-        $ret = imagecreatetruecolor($width, $height);
-        imagealphablending($ret, false);
-        imagesavealpha($ret,true);
-        $transparent = imagecolorallocatealpha($ret, 255, 255, 255, 127);
-        imagefilledrectangle($ret, 0, 0, $width, $height, $transparent);
-        imagecopyresampled($ret, $original, 0, 0, 0, 0, $width, $height, $size[0], $size[1]);
-        return $ret;
+    public function scroll() {
+        if (!isset($_POST['last']))
+            return ;
+        $this->callView('post/loadPosts', ['posts' => Post::getSome($_POST['last'], $this->paginate)]);
     }
 }
 

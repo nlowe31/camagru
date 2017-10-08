@@ -2,13 +2,18 @@
 
 class App {
 
-    protected $controller = 'pages';
-    protected $action = 'error';
+    protected $controller = 'user';
+    protected $action = 'login';
     protected $params = [];
     
     public function __construct() {
         $uri = self::parseURI();
-        
+
+        if (isset($_SESSION['auth'])) {
+            $this->controller = 'post';
+            $this->action = 'all';
+        }
+
         if (file_exists('app/controllers/' . $uri[0] . 'Controller.class.php')) {
             $this->controller = $uri[0];
             unset($uri[0]);

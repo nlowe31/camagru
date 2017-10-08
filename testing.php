@@ -53,6 +53,7 @@ require_once('app/core/Db.class.php');
 require_once('app/core/App.class.php');
 require_once('app/models/User.class.php');
 require_once('app/models/Post.class.php');
+require_once('app/models/Comment.class.php');
 require_once('app/controllers/UserController.class.php');
 require_once('app/controllers/PostController.class.php');
 
@@ -92,7 +93,26 @@ require_once('app/controllers/PostController.class.php');
 //$_POST['image'] = $encoded;
 //$poster->upload();
 
-$post = Post::get(24);
-$post->delete();
+//$post = Post::get(27);
+//$post->confirmed = 1;
+//$post->push();
+//
+//$post->addComment(19, "lololol");
+//
+//print_r($post);
+
+//$posts = Post::getAll();
+//
+//print_r($posts);
+//
+$pc = new PostController();
+//
+//$_POST['current'] = 1;
+//print_r(json_encode($pc->getPosts()));
+
+//require_once('app/views/post/index.php');
+
+$_POST['last'] = 100;
+$pc->scroll();
 
 ?>
