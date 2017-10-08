@@ -45,11 +45,11 @@
             <canvas id="canvas"></canvas>
 
             <div id="filter_bar" class="post_icontray">
-                <a href="#" title="Banana!"><img id="filter_banana" class="post_icon" src="/public/resources/filters/banana.png"/></a>
-                <a href="#" title="Banana!"><img id="filter_icecream" class="post_icon" src="/public/resources/filters/icecream.png"/></a>
-                <a href="#" title="Banana!"><img id="filter_geek" class="post_icon" src="/public/resources/filters/geek.png"/></a>
-                <a href="#" title="Banana!"><img id="filter_stopsign" class="post_icon" src="/public/resources/filters/stopsign.png"/></a>
-                <a href="#" title="Banana!"><img id="filter_usa" class="post_icon" src="/public/resources/filters/usa.png"/></a>
+                <a href="#" title="Banana!"><img id="filter_banana" class="post_icon" src="/public/resources/filters/banana_icon.png"/></a>
+                <a href="#" title="Banana!"><img id="filter_icecream" class="post_icon" src="/public/resources/filters/icecream_icon.png"/></a>
+                <a href="#" title="Banana!"><img id="filter_geek" class="post_icon" src="/public/resources/filters/geek_icon.png"/></a>
+                <a href="#" title="Banana!"><img id="filter_stopsign" class="post_icon" src="/public/resources/filters/stopsign_icon.png"/></a>
+                <a href="#" title="Banana!"><img id="filter_usa" class="post_icon" src="/public/resources/filters/usa_icon.png"/></a>
             </div>
 
             <div id="camera_active" class="post_icontray">

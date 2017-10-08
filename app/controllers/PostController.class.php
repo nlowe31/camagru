@@ -24,12 +24,13 @@ class PostController extends Controller {
             $encodedData = str_replace(' ', '+', $encodedData);
             $decodedData = base64_decode($encodedData);
             $img = imagecreatefromstring($decodedData);
-            $img = imagescale($img, 500);
+            $img = imagescale($img, 600);
 
             $filter_loc = 'public/resources/filters/' . htmlspecialchars($_POST['filter']) . '.png';
             if (file_exists($filter_loc)) {
                 $filter = imagecreatefrompng($filter_loc);
-                $filter = imagescale($filter, 500);
+                $filter = imagescale($filter, 600);
+                imageflip($filter, IMG_FLIP_HORIZONTAL);
                 imagecopy($img, $filter, 0, 0, 0, 0, imagesx($filter) - 1, imagesy($filter) - 1);
             }
             if ($post = Post::create($_SESSION['auth'])) {
@@ -65,16 +66,26 @@ class PostController extends Controller {
         echo 'ERROR';
     }
 
-    public function getPosts() {
-        if (!isset($_POST['current']))
-            $_POST['current'] = 0;
-        echo json_encode(Post::getSome($_POST['current'], $this->paginate));
-    }
-
     public function scroll() {
         if (!isset($_POST['last']))
             return ;
         $this->callView('post/loadPosts', ['posts' => Post::getSome($_POST['last'], $this->paginate)]);
+    }
+
+    public function loadComments() {
+        if (!isset($_POST['pid']))
+            return ;
+        $this->callView('post/showComments', ['post' => Post::get($_POST['pid'])]);
+    }
+
+    public function postComment() {
+        if (!isset($_POST['pid'], $_POST['text'], $_SESSION['auth']))
+            return ;
+        if (($post = Post::get($_POST['pid'])) && ($post->addComment($_SESSION['auth'], $_POST['text']))) {
+            echo 'SUCCESS';
+        }
+        else
+            echo 'ERROR';
     }
 }
 

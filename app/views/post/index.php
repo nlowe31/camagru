@@ -1,7 +1,6 @@
 <div id="feed">
 <?php
-require_once('showPosts.php');
-showPosts($posts);
+require_once('loadPosts.php');
 ?>
 </div>
 
@@ -9,9 +8,9 @@ showPosts($posts);
 
 <script src="/public/js/includes.js"></script>
 <script>
-    (function () {
-        var last = <?php echo((array_pop($posts))->pid); ?>;
+//    var last = <?php //echo((array_pop($posts))->pid); ?>//;
 
+    (function () {
         _('more').addEventListener("click", scroll);
 
         function scroll() {

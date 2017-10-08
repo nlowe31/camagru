@@ -31,11 +31,11 @@ class Post {
     }
 
     public static function getAll($qty) {
-        return Db::select_all_object('SELECT p.*, COUNT(DISTINCT l.lid) AS likeCount, u.username AS username FROM posts p LEFT JOIN likes l ON p.pid=l.pid LEFT JOIN users u ON p.uid = u.uid GROUP BY p.pid HAVING p.confirmed=1 LIMIT ?', [$qty], 'Post');
+        return Db::select_all_object('SELECT p.*, COUNT(DISTINCT l.lid) AS likeCount, u.username AS username FROM posts p LEFT JOIN likes l ON p.pid=l.pid LEFT JOIN users u ON p.uid = u.uid GROUP BY p.pid HAVING p.confirmed=1 ORDER BY p.pid DESC LIMIT ?', [$qty], 'Post');
     }
 
     public static function getSome($last, $qty) {
-        $posts = Db::select_all_object('SELECT p.*, COUNT(DISTINCT l.lid) AS likeCount, u.username AS username FROM posts p LEFT JOIN likes l ON p.pid=l.pid LEFT JOIN users u ON p.uid = u.uid WHERE p.pid<? GROUP BY p.pid HAVING p.confirmed=1 LIMIT ?', [$last, $qty], 'Post');
+        $posts = Db::select_all_object('SELECT p.*, COUNT(DISTINCT l.lid) AS likeCount, u.username AS username FROM posts p LEFT JOIN likes l ON p.pid=l.pid LEFT JOIN users u ON p.uid = u.uid WHERE p.pid<? GROUP BY p.pid HAVING p.confirmed=1 ORDER BY p.pid DESC LIMIT ?', [$last, $qty], 'Post');
         foreach($posts as $post) {
             $post->getComments();
         }

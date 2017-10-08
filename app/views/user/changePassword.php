@@ -3,7 +3,7 @@
 <form method="POST" action="/user/newPassword">
     <p><b>Email: </b><?php echo(htmlspecialchars($user->email))?></p>
 
-    <p><label for="password">New Password: </label><input type="password" name="password" /></p>
-    <p><label for="confirm">Confirm password: </label><input type="password" name="confirm" /></p>
+    <p><label for="password">New Password: </label><input type="password" class="text_box" name="password" /></p>
+    <p><label for="confirm">Confirm password: </label><input type="password" class="text_box" name="confirm" /></p>
     <p><input type="submit" name="Submit" value="Change Password" /></p>
 </form>
