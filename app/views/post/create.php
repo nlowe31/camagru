@@ -24,6 +24,10 @@
     width: 35em;
 }
 
+#photobooth {
+    margin: 4em 4em auto;
+}
+
 #sidebar_container {
     position: relative;
     display: inline-block;
