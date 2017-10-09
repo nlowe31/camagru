@@ -13,3 +13,10 @@ function ajax(url, data, f) {
     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     request.send(data);
 }
+
+function addEventListenerToClass(className, event, f) {
+    var classElements = document.getElementsByClassName(className);
+    for (var i = 0; i < classElements.length; i++) {
+        classElements[i].addEventListener(event, f, false);
+    }
+}

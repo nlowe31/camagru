@@ -106,13 +106,30 @@ require_once('app/controllers/PostController.class.php');
 //print_r($posts);
 //
 $pc = new PostController();
+////
+////$_POST['current'] = 1;
+////print_r(json_encode($pc->getPosts()));
 //
-//$_POST['current'] = 1;
-//print_r(json_encode($pc->getPosts()));
+////require_once('app/views/post/index.php');
+//
+//$_POST['last'] = 100;
+//$pc->scroll();
 
-//require_once('app/views/post/index.php');
+//$post = Post::get(102);
+//
+//$post->addLike(19);
+//
+//if ($post->isLiked(19))
+//    echo 'YES (1)';
+//
+//$post->removeLike(19);
+//
+//if ($post->isLiked(19))
+//    echo 'YES (2)';
 
-$_POST['last'] = 100;
-$pc->scroll();
+$_POST['pid'] = 102;
+$_SESSION['auth'] = 19;
+
+$pc->like();
 
 ?>

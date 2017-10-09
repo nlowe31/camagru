@@ -53,12 +53,12 @@
             </div>
 
             <div id="camera_active" class="post_icontray">
-                <a href="#" title="Snap!"><img id="shutter" class="post_icon_large" src="/public/resources/icons/photo-camera.svg"/></a>
+                <a href="#" title="Snap!"><img id="shutter" class="post_icon_large" src="/public/resources/icons/photo-camera.png"/></a>
             </div>
 
             <div id="camera_inactive" class="post_icontray">
-                <a href="#" title="Disapprove"><img id="disapprove" class="post_icon_large" src="/public/resources/icons/dislike.svg"/></a>
-                <a href="#" title="Approve"><img id="approve" class="post_icon_large" src="/public/resources/icons/like.svg"/></a>
+                <a href="#" title="Disapprove"><img id="disapprove" class="post_icon_large" src="/public/resources/icons/dislike.png"/></a>
+                <a href="#" title="Approve"><img id="approve" class="post_icon_large" src="/public/resources/icons/like.png"/></a>
             </div>
         </div>
     </div>

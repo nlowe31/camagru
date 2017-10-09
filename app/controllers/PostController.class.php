@@ -79,13 +79,27 @@ class PostController extends Controller {
     }
 
     public function postComment() {
-        if (!isset($_POST['pid'], $_POST['text'], $_SESSION['auth']))
+        if (!isset($_POST['pid'], $_POST['text'], $_SESSION['auth']) || $_POST['text'] === '')
             return ;
         if (($post = Post::get($_POST['pid'])) && ($post->addComment($_SESSION['auth'], $_POST['text']))) {
             echo 'SUCCESS';
         }
         else
             echo 'ERROR';
+    }
+
+    public function like() {
+        if (!isset($_POST['pid'], $_SESSION['auth']))
+            return ;
+        $post = Post::get($_POST['pid']);
+
+        if ($post->isLiked($_SESSION['auth']))
+            $post->removeLike($_SESSION['auth']);
+        else
+            $post->addLike($_SESSION['auth']);
+
+        $post = Post::get($post->pid);
+        $this->callView('post/showTop', ['post' => $post]);
     }
 }
 

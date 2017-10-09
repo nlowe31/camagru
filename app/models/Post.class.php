@@ -58,8 +58,15 @@ class Post {
         return Db::insert('DELETE FROM likes WHERE pid=? AND uid=?', [$this->pid, $uid]);
     }
 
+    public function isLiked($uid) {
+        $count = Db::update('SELECT lid FROM likes WHERE pid=? AND uid=?', [$this->pid, $uid]);
+        if ($count !== 0 && $count !== FALSE)
+            return TRUE;
+        return FALSE;
+    }
+
     public function addComment($uid, $text) {
-        return Db::insert('INSERT INTO comments (pid, uid, text) VALUES (?, ?, ?)', [$this->pid, $uid, $text]);
+        Db::insert('INSERT INTO comments (pid, uid, text) VALUES (?, ?, ?)', [$this->pid, $uid, $text]);
     }
 
     public function removeComment($cid) {
