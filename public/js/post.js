@@ -1,3 +1,18 @@
+window.onscroll = function () {
+    var posY = window.pageYOffset,
+        winSize = window.innerHeight,
+        pageSize = document.documentElement.scrollHeight;
+
+    if (posY + winSize > pageSize - 30) {
+        ajax("/post/scroll", ("last=" + last), function () {
+            if (this.readyState === 4 && this.status === 200) {
+                _('feed').insertAdjacentHTML('beforeend', this.responseText);
+                last = _('feed').lastChild.dataset.pid;
+            }
+        });
+    }
+};
+
 function postComment(e) {
     e.preventDefault();
     var pid = e.currentTarget.dataset.pid,
@@ -18,7 +33,7 @@ function postComment(e) {
                 textbox.value = '';
             }
         }
-        });
+    });
 }
 
 function reloadComments(pid) {

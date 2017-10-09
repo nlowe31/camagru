@@ -2,70 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75a3f672-a7ea-4fa3-866e-15c002b7a1d3" name="Default" comment="camera save finally working">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/post.js" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/avatar-1.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/avatar.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/back.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/book.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/cancel.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/chat-1.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/chat-2.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/chat.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/copy.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/dislike.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/download-1.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/download.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/edit.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/envelope.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/folder.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/garbage.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/glasses.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/hand.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/headphones.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/heart.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/house.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/like.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/link.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/logout.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/magnifying-glass.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/monitor.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/musical-note.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/next-1.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/next.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/padlock.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/paper-plane.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/phone-call.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/photo-camera.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/pie-chart.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/piggy-bank.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/placeholder.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/printer.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/reload.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/settings-1.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/settings.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/share.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/shopping-bag.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/shopping-cart.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/shuffle.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/speaker.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/star.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/tag.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/upload-1.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/upload.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/icons/vector.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/app/views/post/loadPosts.php" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/PostController.class.php" afterPath="$PROJECT_DIR$/app/controllers/PostController.class.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/Post.class.php" afterPath="$PROJECT_DIR$/app/models/Post.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/pages/test.php" afterPath="$PROJECT_DIR$/app/views/pages/test.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/post/create.php" afterPath="$PROJECT_DIR$/app/views/post/create.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/post/loadPosts.php" afterPath="$PROJECT_DIR$/app/views/post/loadPosts.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/post/index.php" afterPath="$PROJECT_DIR$/app/views/post/index.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/post/showPost.php" afterPath="$PROJECT_DIR$/app/views/post/showPost.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/post/showPosts.php" afterPath="$PROJECT_DIR$/app/views/post/showPosts.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/post/viewAll.php" afterPath="$PROJECT_DIR$/app/views/post/viewAll.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/templates/header.php" afterPath="$PROJECT_DIR$/app/views/templates/header.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/user/login.php" afterPath="$PROJECT_DIR$/app/views/user/login.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/includes.js" afterPath="$PROJECT_DIR$/public/js/includes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/testing.php" afterPath="$PROJECT_DIR$/testing.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/post.js" afterPath="$PROJECT_DIR$/public/js/post.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -118,18 +63,8 @@
       <file leaf-file-name="PostController.class.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/PostController.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
-              <caret line="100" column="38" lean-forward="false" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="testing.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/testing.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="127" column="21" lean-forward="true" selection-start-line="127" selection-start-column="21" selection-end-line="127" selection-end-column="21" />
+            <state relative-caret-position="212">
+              <caret line="70" column="5" lean-forward="true" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -138,18 +73,8 @@
       <file leaf-file-name="showPosts.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/post/showPosts.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="post.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/post.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="33" column="36" lean-forward="false" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+            <state relative-caret-position="92">
+              <caret line="4" column="2" lean-forward="true" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -158,18 +83,38 @@
       <file leaf-file-name="showPost.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/post/showPost.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="15" column="76" lean-forward="false" selection-start-line="15" selection-start-column="76" selection-end-line="15" selection-end-column="76" />
+            <state relative-caret-position="414">
+              <caret line="18" column="6" lean-forward="true" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="showTop.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/post/showTop.php">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/post/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="9" column="64" lean-forward="false" selection-start-line="9" selection-start-column="64" selection-end-line="9" selection-end-column="64" />
+            <state relative-caret-position="253">
+              <caret line="11" column="42" lean-forward="true" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="includes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/includes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="483">
+              <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="post.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/post.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="322">
+              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -178,25 +123,25 @@
       <file leaf-file-name="Post.class.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/Post.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="68" column="104" lean-forward="true" selection-start-line="68" selection-start-column="104" selection-end-line="68" selection-end-column="104" />
+            <state relative-caret-position="428">
+              <caret line="37" column="203" lean-forward="false" selection-start-line="37" selection-start-column="200" selection-end-line="37" selection-end-column="203" />
               <folding>
-                <marker date="1507553309000" expanded="true" signature="358:392" ph="INSERT INTO posts... " />
-                <marker date="1507553309000" expanded="true" signature="489:677" ph="SELECT p.*, posts" />
-                <marker date="1507553309000" expanded="true" signature="763:817" ph="UPDATE posts... " />
-                <marker date="1507553309000" expanded="true" signature="1035:1222" ph="SELECT p.*, posts" />
-                <marker date="1507553309000" expanded="true" signature="1035:1250" ph="SELECT p.*, posts" />
-                <marker date="1507553309000" expanded="true" signature="1367:1596" ph="SELECT p.*, posts" />
-                <marker date="1507553309000" expanded="true" signature="1409:1596" ph="SELECT p.*, posts" />
-                <marker date="1507553309000" expanded="true" signature="1817:1900" ph="SELECT * FRO... comments" />
-                <marker date="1507553309000" expanded="true" signature="1817:1915" ph="SELECT c.*, comments" />
-                <marker date="1507553309000" expanded="true" signature="2027:2058" ph="SELECT * FRO... likes" />
-                <marker date="1507553309000" expanded="true" signature="2148:2190" ph="INSERT INTO likes... " />
-                <marker date="1507553309000" expanded="true" signature="2287:2326" ph="DELETE FROM " />
-                <marker date="1507553309000" expanded="true" signature="2422:2465" ph="SELECT lid F... likes" />
-                <marker date="1507553309000" expanded="true" signature="2655:2709" ph="INSERT INTO comments... " />
-                <marker date="1507553309000" expanded="true" signature="2816:2848" ph="DELETE FROM " />
-                <marker date="1507553309000" expanded="true" signature="3049:3078" ph="DELETE FROM " />
+                <marker date="1507554570000" expanded="true" signature="358:392" ph="INSERT INTO posts... " />
+                <marker date="1507554570000" expanded="true" signature="489:677" ph="SELECT p.*, posts" />
+                <marker date="1507554570000" expanded="true" signature="763:817" ph="UPDATE posts... " />
+                <marker date="1507554570000" expanded="true" signature="1035:1222" ph="SELECT p.*, posts" />
+                <marker date="1507554570000" expanded="true" signature="1035:1250" ph="SELECT p.*, posts" />
+                <marker date="1507554570000" expanded="true" signature="1367:1596" ph="SELECT p.*, posts" />
+                <marker date="1507554570000" expanded="true" signature="1409:1596" ph="SELECT p.*, posts" />
+                <marker date="1507554570000" expanded="true" signature="1738:1821" ph="SELECT * FRO... comments" />
+                <marker date="1507554570000" expanded="true" signature="1738:1836" ph="SELECT c.*, comments" />
+                <marker date="1507554570000" expanded="true" signature="1948:1979" ph="SELECT * FRO... likes" />
+                <marker date="1507554570000" expanded="true" signature="2069:2111" ph="INSERT INTO likes... " />
+                <marker date="1507554570000" expanded="true" signature="2208:2247" ph="DELETE FROM " />
+                <marker date="1507554570000" expanded="true" signature="2343:2386" ph="SELECT lid F... likes" />
+                <marker date="1507554570000" expanded="true" signature="2583:2637" ph="INSERT INTO comments... " />
+                <marker date="1507554570000" expanded="true" signature="2744:2776" ph="DELETE FROM " />
+                <marker date="1507554570000" expanded="true" signature="2977:3006" ph="DELETE FROM " />
               </folding>
             </state>
           </provider>
@@ -236,6 +181,7 @@
       <find>ajax</find>
       <find>.svg</find>
       <find>this</find>
+      <find>button</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -272,8 +218,6 @@
         <option value="$PROJECT_DIR$/app/core/App.class.php" />
         <option value="$PROJECT_DIR$/app/core/Controller.class.php" />
         <option value="$PROJECT_DIR$/app/views/post/viewAll.php" />
-        <option value="$PROJECT_DIR$/app/views/post/create.php" />
-        <option value="$PROJECT_DIR$/app/views/post/index.php" />
         <option value="$PROJECT_DIR$/app/views/user/signup.php" />
         <option value="$PROJECT_DIR$/app/views/user/myAccount.php" />
         <option value="$PROJECT_DIR$/app/views/user/changePassword.php" />
@@ -283,17 +227,19 @@
         <option value="$PROJECT_DIR$/app/views/post/showComments.php" />
         <option value="$PROJECT_DIR$/app/views/user/login.php" />
         <option value="$PROJECT_DIR$/public/js/includes.js" />
-        <option value="$PROJECT_DIR$/app/views/post/loadPosts.php" />
         <option value="$PROJECT_DIR$/app/views/pages/test.php" />
         <option value="$PROJECT_DIR$/app/views/post/showLike.php" />
         <option value="$PROJECT_DIR$/testing.php" />
         <option value="$PROJECT_DIR$/app/views/post/showLikes.php" />
         <option value="$PROJECT_DIR$/app/views/post/showTop.php" />
-        <option value="$PROJECT_DIR$/app/views/post/showPost.php" />
-        <option value="$PROJECT_DIR$/app/views/post/showPosts.php" />
         <option value="$PROJECT_DIR$/app/models/Post.class.php" />
+        <option value="$PROJECT_DIR$/app/views/post/create.php" />
+        <option value="$PROJECT_DIR$/app/views/post/loadPosts.php" />
         <option value="$PROJECT_DIR$/app/controllers/PostController.class.php" />
+        <option value="$PROJECT_DIR$/app/views/post/showPosts.php" />
+        <option value="$PROJECT_DIR$/app/views/post/showPost.php" />
         <option value="$PROJECT_DIR$/public/js/post.js" />
+        <option value="$PROJECT_DIR$/app/views/post/index.php" />
       </list>
     </option>
   </component>
@@ -434,13 +380,6 @@
               <item name="camagru" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="camagru" type="b2602c69:ProjectViewProjectNode" />
-              <item name="camagru" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="post" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
@@ -518,12 +457,12 @@
       <workItem from="1507378499592" duration="23102000" />
       <workItem from="1507496793188" duration="5605000" />
       <workItem from="1507544399015" duration="1455000" />
-      <workItem from="1507545982290" duration="5833000" />
+      <workItem from="1507545982290" duration="10308000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73425000" />
+    <option name="totallyTimeSpent" value="77900000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="826" extended-state="0" />
@@ -709,14 +648,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/post/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="23" column="9" lean-forward="true" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/style/main.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="575">
@@ -761,34 +692,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/post/create.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="51" column="122" lean-forward="false" selection-start-line="51" selection-start-column="122" selection-end-line="51" selection-end-column="122" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/post/viewAll.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-260">
-          <caret line="39" column="9" lean-forward="true" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/user/login.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
           <caret line="5" column="49" lean-forward="false" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/includes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="21" column="1" lean-forward="false" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
           <folding />
         </state>
       </provider>
@@ -813,14 +720,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="412">
           <caret line="52" column="5" lean-forward="true" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/post/loadPosts.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="35" lean-forward="false" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
           <folding />
         </state>
       </provider>
@@ -856,10 +755,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/post/showPost.php">
+    <entry file="file://$PROJECT_DIR$/testing.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="15" column="76" lean-forward="false" selection-start-line="15" selection-start-column="76" selection-end-line="15" selection-end-column="76" />
+        <state relative-caret-position="422">
+          <caret line="127" column="21" lean-forward="true" selection-start-line="127" selection-start-column="21" selection-end-line="127" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -872,59 +771,99 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/post.js">
+    <entry file="file://$PROJECT_DIR$/app/views/post/create.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="33" column="36" lean-forward="false" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+        <state relative-caret-position="414">
+          <caret line="18" column="1" lean-forward="true" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/post/showPosts.php">
+    <entry file="file://$PROJECT_DIR$/app/views/post/viewAll.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="-546">
+          <caret line="39" column="9" lean-forward="true" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/post/loadPosts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models/Post.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="68" column="104" lean-forward="true" selection-start-line="68" selection-start-column="104" selection-end-line="68" selection-end-column="104" />
+        <state relative-caret-position="428">
+          <caret line="37" column="203" lean-forward="false" selection-start-line="37" selection-start-column="200" selection-end-line="37" selection-end-column="203" />
           <folding>
-            <marker date="1507553309000" expanded="true" signature="358:392" ph="INSERT INTO posts... " />
-            <marker date="1507553309000" expanded="true" signature="489:677" ph="SELECT p.*, posts" />
-            <marker date="1507553309000" expanded="true" signature="763:817" ph="UPDATE posts... " />
-            <marker date="1507553309000" expanded="true" signature="1035:1222" ph="SELECT p.*, posts" />
-            <marker date="1507553309000" expanded="true" signature="1035:1250" ph="SELECT p.*, posts" />
-            <marker date="1507553309000" expanded="true" signature="1367:1596" ph="SELECT p.*, posts" />
-            <marker date="1507553309000" expanded="true" signature="1409:1596" ph="SELECT p.*, posts" />
-            <marker date="1507553309000" expanded="true" signature="1817:1900" ph="SELECT * FRO... comments" />
-            <marker date="1507553309000" expanded="true" signature="1817:1915" ph="SELECT c.*, comments" />
-            <marker date="1507553309000" expanded="true" signature="2027:2058" ph="SELECT * FRO... likes" />
-            <marker date="1507553309000" expanded="true" signature="2148:2190" ph="INSERT INTO likes... " />
-            <marker date="1507553309000" expanded="true" signature="2287:2326" ph="DELETE FROM " />
-            <marker date="1507553309000" expanded="true" signature="2422:2465" ph="SELECT lid F... likes" />
-            <marker date="1507553309000" expanded="true" signature="2655:2709" ph="INSERT INTO comments... " />
-            <marker date="1507553309000" expanded="true" signature="2816:2848" ph="DELETE FROM " />
-            <marker date="1507553309000" expanded="true" signature="3049:3078" ph="DELETE FROM " />
+            <marker date="1507554570000" expanded="true" signature="358:392" ph="INSERT INTO posts... " />
+            <marker date="1507554570000" expanded="true" signature="489:677" ph="SELECT p.*, posts" />
+            <marker date="1507554570000" expanded="true" signature="763:817" ph="UPDATE posts... " />
+            <marker date="1507554570000" expanded="true" signature="1035:1222" ph="SELECT p.*, posts" />
+            <marker date="1507554570000" expanded="true" signature="1035:1250" ph="SELECT p.*, posts" />
+            <marker date="1507554570000" expanded="true" signature="1367:1596" ph="SELECT p.*, posts" />
+            <marker date="1507554570000" expanded="true" signature="1409:1596" ph="SELECT p.*, posts" />
+            <marker date="1507554570000" expanded="true" signature="1738:1821" ph="SELECT * FRO... comments" />
+            <marker date="1507554570000" expanded="true" signature="1738:1836" ph="SELECT c.*, comments" />
+            <marker date="1507554570000" expanded="true" signature="1948:1979" ph="SELECT * FRO... likes" />
+            <marker date="1507554570000" expanded="true" signature="2069:2111" ph="INSERT INTO likes... " />
+            <marker date="1507554570000" expanded="true" signature="2208:2247" ph="DELETE FROM " />
+            <marker date="1507554570000" expanded="true" signature="2343:2386" ph="SELECT lid F... likes" />
+            <marker date="1507554570000" expanded="true" signature="2583:2637" ph="INSERT INTO comments... " />
+            <marker date="1507554570000" expanded="true" signature="2744:2776" ph="DELETE FROM " />
+            <marker date="1507554570000" expanded="true" signature="2977:3006" ph="DELETE FROM " />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/testing.php">
+    <entry file="file://$PROJECT_DIR$/app/views/post/showPosts.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="127" column="21" lean-forward="true" selection-start-line="127" selection-start-column="21" selection-end-line="127" selection-end-column="21" />
+        <state relative-caret-position="92">
+          <caret line="4" column="2" lean-forward="true" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/post/showPost.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="18" column="6" lean-forward="true" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/post/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="11" column="42" lean-forward="true" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/includes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/post.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/PostController.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="100" column="38" lean-forward="false" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
+        <state relative-caret-position="212">
+          <caret line="70" column="5" lean-forward="true" selection-start-line="70" selection-start-column="5" selection-end-line="70" selection-end-column="5" />
           <folding />
         </state>
       </provider>

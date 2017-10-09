@@ -1,5 +1,5 @@
 <style>
-#preview, #still{
+#preview{
     transform: scaleX(-1);
 }
 #still, #canvas, #camera_inactive {
