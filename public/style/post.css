@@ -1,5 +1,4 @@
 .post {
-    /*display: block;*/
     max-width: 35em;
     border: 1px solid #efefef;
     background-color: white;
@@ -100,7 +99,9 @@
 .mini_post {
     position: relative;
     width: inherit;
-    height: 8em;
+    min-height: 7em;
+    margin-bottom: 0.5em;
+    overflow: hidden;
     display: block;
 }
 

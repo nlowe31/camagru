@@ -35,7 +35,15 @@ class Post {
     }
 
     public static function getSome($last, $qty) {
-        $posts = Db::select_all_object('SELECT p.*, COUNT(DISTINCT l.lid) AS likeCount, u.username AS username FROM posts p LEFT JOIN likes l ON p.pid=l.pid LEFT JOIN users u ON p.uid = u.uid WHERE p.pid<? GROUP BY p.pid HAVING p.confirmed=1 ORDER BY p.pid DESC LIMIT ?', [$last, $qty], 'Post');
+        return Db::select_all_object('SELECT p.*, COUNT(DISTINCT l.lid) AS likeCount, u.username AS username FROM posts p LEFT JOIN likes l ON p.pid=l.pid LEFT JOIN users u ON p.uid = u.uid GROUP BY p.pid HAVING p.pid<? AND p.confirmed=1 ORDER BY p.pid DESC LIMIT ?', [$last, $qty], 'Post');
+    }
+
+    public static function getAllFromUser($uid, $qty) {
+        return Db::select_all_object('SELECT p.*, COUNT(DISTINCT l.lid) AS likeCount, u.username AS username FROM posts p LEFT JOIN likes l ON p.pid=l.pid LEFT JOIN users u ON p.uid = u.uid GROUP BY p.pid HAVING p.uid=? AND p.confirmed=1 ORDER BY p.pid DESC LIMIT ?', [$uid, $qty], 'Post');
+    }
+
+    public static function getSomeFromUser($uid, $last, $qty) {
+        return Db::select_all_object('SELECT p.*, COUNT(DISTINCT l.lid) AS likeCount, u.username AS username FROM posts p LEFT JOIN likes l ON p.pid=l.pid LEFT JOIN users u ON p.uid = u.uid GROUP BY p.pid HAVING p.uid=? AND p.pid<? AND p.confirmed=1 ORDER BY p.pid DESC LIMIT ?', [$uid, $last, $qty], 'Post');
         return $posts;
     }
 

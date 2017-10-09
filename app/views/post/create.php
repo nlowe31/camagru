@@ -11,13 +11,11 @@
         margin: auto;
         text-align: center;
         display: block;
-        /*position: absolute;*/
     }
 
     #photobooth, #sidebar {
         vertical-align: top;
         margin: 4em 2em auto;
-        height: 40em;
     }
 
     #sidebar {
@@ -26,15 +24,18 @@
         display: inline-block;
         width: 10em;
         overflow: auto;
+        height: 38em;
     }
 
     #photobooth {
         /*float: left;*/
+        position: relative;
         display: inline-block;
         width: 35em;
+        min-height: 38em;
     }
 
-    #shutter, #upload {
+    #shutter, #upload_button {
         opacity: 0.2;
     }
 
@@ -57,7 +58,8 @@
 
         <div id="camera_active" class="post_icontray">
             <img id="shutter" class="post_icon_large" src="/public/resources/icons/photo-camera.png"/>
-            <img id="upload" class="post_icon_large" src="/public/resources/icons/upload.png"/>
+            <img id="upload_button" class="post_icon_large" src="/public/resources/icons/upload.png"/>
+            <input type="file" id="upload" style="display:none;"/>
         </div>
 
         <div id="camera_inactive" class="post_icontray">
@@ -66,14 +68,15 @@
         </div>
     </div>
     <div id="sidebar" class="box">
-        <div class="mini_post">
-            <img class="mini_post_photo" src="/userData/104.png"/>
-            <div class="mini_post_overlay" data-pid="">
-                <img class="mini_post_overlay_icon" src="/public/resources/icons/garbage.png">
-            </div>
+        <div id="mini_posts">
+            <?php require_once('showMiniPosts.php'); ?>
         </div>
+        <img id="load_more" class="post_icon" src="/public/resources/icons/next-1.png"/>
     </div>
 </div>
 
 <script src="/public/js/includes.js"></script>
+<script>
+    var last = <?php echo((array_pop($posts))->pid); ?>;
+</script>
 <script src="/public/js/cam.js"></script>

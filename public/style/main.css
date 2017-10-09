@@ -138,6 +138,7 @@ input:focus {
 
 .error {
     color: darkred;
+    font-weight: bold;
 }
 
 footer {

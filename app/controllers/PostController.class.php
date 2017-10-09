@@ -1,7 +1,7 @@
 <?php
 
 class PostController extends Controller {
-    private $paginate = 5;
+    private $paginate = 10;
 
     public function __construct() {
         $this->getModel('post');
@@ -9,7 +9,7 @@ class PostController extends Controller {
     }
 
     public function create() {
-        $this->displayView('post/create');
+        $this->displayView('post/create', ['posts' => Post::getAllFromUser($_SESSION['auth'], $this->paginate)]);
     }
 
     public function all() {
@@ -22,15 +22,36 @@ class PostController extends Controller {
             $encodedData = str_replace(' ', '+', $encodedData);
             $decodedData = base64_decode($encodedData);
             $img = imagecreatefromstring($decodedData);
+            imageflip($img, IMG_FLIP_HORIZONTAL);
             $this->save($img, htmlspecialchars($_POST['filter']), $_SESSION['auth']);
         }
         else
             echo 'ERROR';
     }
 
+    public function upload() {
+        if (isset($_FILES['image'], $_POST['filter'], $_SESSION['auth'])) {
+            if ($_FILES['image']['size'] < 2000000) {
+                $supported = ['png', 'jpg', 'jpeg'];
+                $extension = pathinfo($_FILES['image']['name'],PATHINFO_EXTENSION);
+                if (in_array($extension, $supported)) {
+                    $img = FALSE;
+                    if ($extension === 'png') {
+                        $img = imagecreatefrompng($_FILES['image']['tmp_name']);
+                    }
+                    else if ($extension === 'jpg' || $extension === 'jpeg') {
+                        $img = imagecreatefromjpeg($_FILES['image']['tmp_name']);
+                    }
+                    if ($img !== FALSE)
+                        return ($this->save($img, htmlspecialchars($_POST['filter']), $_SESSION['auth']));
+                }
+            }
+        }
+        echo 'ERROR';
+    }
+
     private function save($img, $filter_name, $uid) {
         $img = imagescale($img, 600);
-        imageflip($img, IMG_FLIP_HORIZONTAL);
 
         $filter_loc = 'public/resources/filters/' . $filter_name . '.png';
         if (file_exists($filter_loc)) {
@@ -57,12 +78,12 @@ class PostController extends Controller {
                 if ($_POST['decision'] === 'approve') {
                     $post->confirmed = 1;
                     $post->push();
-                    echo 'SUCCESS';
+                    echo 'APPROVE';
                     return ;
                 }
                 else {
                     $post->delete();
-                    echo 'SUCCESS';
+                    echo 'DISAPPROVE';
                     return ;
                 }
             }
@@ -74,6 +95,18 @@ class PostController extends Controller {
         if (!isset($_POST['last']))
             return ;
         $this->callView('post/showPosts', ['posts' => Post::getSome($_POST['last'], $this->paginate)]);
+    }
+
+    public function scrollMini() {
+        if (!isset($_POST['last'], $_SESSION['auth']))
+            return ;
+        $this->callView('post/showMiniPosts', ['posts' => Post::getSomeFromUser($_SESSION['auth'], $_POST['last'], $this->paginate)]);
+    }
+
+    public function loadMini() {
+        if (!isset($_POST['pid'], $_SESSION['auth']))
+            return ;
+        $this->callView('post/showMiniPost', ['post' => Post::get($_POST['pid'])]);
     }
 
     public function loadComments() {
@@ -106,6 +139,20 @@ class PostController extends Controller {
 
         $post = Post::get($post->pid);
         $this->callView('post/showTop', ['post' => $post]);
+    }
+
+    public function delete() {
+        if (!isset($_POST['pid'], $_SESSION['auth']))
+            return ;
+        if ($post = Post::get($_POST['pid'])) {
+            if ($post->uid === $_SESSION['auth']) {
+                if ($post->delete()) {
+                    echo 'SUCCESS';
+                    return ;
+                }
+            }
+        }
+        echo 'ERROR';
     }
 }
 

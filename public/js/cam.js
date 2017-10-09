@@ -5,6 +5,7 @@
         canvas = _('canvas'),
         photo = _('still'),
         shutter = _('shutter'),
+        upload_button = _('upload_button'),
         upload = _('upload'),
         width = _('photobooth').offsetwidth || _('photobooth').clientWidth,
         height = 0,
@@ -56,12 +57,16 @@
         if (filters.indexOf(filterName) !== -1) {
             if (filter === undefined) {
                 shutter.style.opacity = 1;
-                upload.style.opacity = 1;
+                upload_button.style.opacity = 1;
                 shutter.addEventListener('click', function (e) {
                     takePhoto();
                     e.preventDefault();
                 }, false);
-                shutter.addEventListener('click', function (e) {
+                upload_button.addEventListener('click', function (e) {
+                    _('upload').click();
+                    e.preventDefault();
+                }, false);
+                upload.addEventListener('change', function (e) {
                     uploadPhoto();
                     e.preventDefault();
                 }, false);
@@ -83,16 +88,41 @@
 
         ajax("/post/take", request, function () {
             if (this.readyState === 4 && this.status === 200) {
-                if (this.responseText !== 'ERROR')
+                if (this.responseText !== 'ERROR') {
                     pid = this.responseText;
+                    showPhoto();
+                }
                 console.log(pid + "\n");
-                showPhoto();
             }
         });
     }
 
     function uploadPhoto() {
-        console.log('yep');
+        _('upload_button').src = "/public/resources/icons/reload.png";
+
+        var file = _('upload').files[0],
+            formData = new FormData();
+
+        if (!file.type.match('image.*'))
+            return ;
+
+        formData.append('image', file, file.name);
+        formData.append('filter', filter);
+
+        var request = new XMLHttpRequest();
+        request.open('post', '/post/upload', true);
+        request.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                console.log(this.responseText);
+                _('upload_button').src = "/public/resources/icons/upload.png";
+                if (this.responseText !== 'ERROR') {
+                    pid = this.responseText;
+                    showPhoto();
+                }
+                console.log(pid + "\n");
+            }
+        };
+        request.send(formData);
     }
 
     function showPhoto() {
@@ -120,8 +150,43 @@
 
         ajax("/post/decide", ("pid=" + pid + "&decision=" + id), function () {
             if (this.readyState === 4 && this.status === 200) {
-                console.log('OK');
+                if (this.responseText === 'APPROVE') {
+                    addMiniPost(pid);
+                }
                 backToCamera();
+            }
+        });
+    }
+
+    function addMiniPost(pid) {
+        ajax("/post/loadMini", ("pid=" + pid), function () {
+            if (this.readyState === 4 && this.status === 200) {
+                _('mini_posts').insertAdjacentHTML('afterbegin', this.responseText);
+            }
+        });
+    }
+
+    function loadMoreMiniPosts() {
+        ajax("/post/scrollMini", ("last=" + last), function () {
+            if (this.readyState === 4 && this.status === 200) {
+                _('mini_posts').insertAdjacentHTML('beforeend', this.responseText);
+                last = _('mini_posts').lastChild.dataset.pid;
+            }
+        });
+    }
+
+    function deletePost(e) {
+        pid = e.currentTarget.dataset.pid;
+        if (pid === undefined){
+            return ;
+        }
+        ajax("/post/delete", ("pid=" + pid), function () {
+            if (this.readyState === 4 && this.status === 200) {
+                console.log(this.responseText);
+                if (this.responseText === 'SUCCESS') {
+                    toRemove = $('[class="mini_post"][data-pid="' + pid + '"]');
+                    _('mini_posts').removeChild(toRemove);
+                }
             }
         });
     }
@@ -137,5 +202,12 @@
         decide(e);
         e.preventDefault();
     }, false);
+
+    _('load_more').addEventListener('click', function (e) {
+        loadMoreMiniPosts(e);
+        e.preventDefault();
+    }, false);
+
+    addEventListenerToClass('mini_post_overlay', 'click', deletePost);
 
 })();

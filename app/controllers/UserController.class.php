@@ -63,7 +63,7 @@ class UserController extends Controller {
         $_SESSION['auth'] = $this->user->uid;
         // echo "User {$this->user->firstName} {$this->user->lastName} currently logged in.\n";
         // echo "User {$_SESSION['user']->firstName} {$_SESSION['user']->lastName} logged in successfully.\n";
-        App::go('pages/test');
+        App::go('/');
         // echo App::link('pages/test');
         // header('Location: ' . App::link('pages/test'));
     }

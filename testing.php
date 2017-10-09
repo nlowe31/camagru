@@ -105,7 +105,7 @@ require_once('app/controllers/PostController.class.php');
 //
 //print_r($posts);
 //
-$pc = new PostController();
+//$pc = new PostController();
 ////
 ////$_POST['current'] = 1;
 ////print_r(json_encode($pc->getPosts()));
@@ -127,9 +127,12 @@ $pc = new PostController();
 //if ($post->isLiked(19))
 //    echo 'YES (2)';
 
-$_POST['pid'] = 102;
-$_SESSION['auth'] = 19;
+//$_POST['pid'] = 102;
+//$_SESSION['auth'] = 19;
+//
+//$pc->like();
 
-$pc->like();
+//print_r(Post::getAll(10));
+print_r(Post::getAllFromUser(19, 10));
 
 ?>
