@@ -1,11 +1,12 @@
 (function () {
 
     var streaming = false,
-        video = $('#preview'),
-        canvas = $('#canvas'),
-        photo = $('#still'),
-        shutter = $('#shutter'),
-        width = $('#photobooth').offsetwidth || $('#photobooth').clientWidth,
+        video = _('preview'),
+        canvas = _('canvas'),
+        photo = _('still'),
+        shutter = _('shutter'),
+        upload = _('upload'),
+        width = _('photobooth').offsetwidth || _('photobooth').clientWidth,
         height = 0,
         pid = undefined,
         filter = undefined;
@@ -36,6 +37,7 @@
     );
 
     video.addEventListener('canplay', function (ev) {
+        ev.preventDefault();
         if (!streaming) {
             height = video.videoHeight / (video.videoWidth / width);
             video.setAttribute('width', width);
@@ -49,26 +51,29 @@
     var filters = ['banana', 'icecream', 'geek', 'stopsign', 'usa'];
 
     function toggleFilter(e) {
-        var id = e.target.id,
+        var id = e.currentTarget.id,
             filterName = id.split('_')[1];
         if (filters.indexOf(filterName) !== -1) {
             if (filter === undefined) {
+                shutter.style.opacity = 1;
+                upload.style.opacity = 1;
                 shutter.addEventListener('click', function (e) {
-                    takePicture();
+                    takePhoto();
+                    e.preventDefault();
+                }, false);
+                shutter.addEventListener('click', function (e) {
+                    uploadPhoto();
                     e.preventDefault();
                 }, false);
             }
+            else {_('filter_' + filter).className = 'post_icon filter_icon';}
+            _(id).className = 'post_icon_selected filter_icon';
             filter = filterName;
-            _(id).className = 'post_icon_selected';
         }
         console.log(filter);
     }
 
-    filters.forEach(function (element){
-        $('#filter_' + element).addEventListener('click', toggleFilter, false);
-    });
-
-    function takePicture() {
+    function takePhoto() {
         console.log("Filter name: " + filter);
         canvas.width = width;
         canvas.height = height;
@@ -76,8 +81,7 @@
         var data = canvas.toDataURL('image/png'),
             request = "filter=" + filter + "&image=" + data;
 
-        ajax("/post/save", request, function () {
-            console.log("ajax: " + this.readyState + "\n");
+        ajax("/post/take", request, function () {
             if (this.readyState === 4 && this.status === 200) {
                 if (this.responseText !== 'ERROR')
                     pid = this.responseText;
@@ -85,21 +89,10 @@
                 showPhoto();
             }
         });
+    }
 
-        // var request = new XMLHttpRequest();
-        // request.onreadystatechange = function () {
-        //     if (this.readyState === 4 && this.status === 200) {
-        //         console.log('OK');
-        //         if (request.responseText !== 'ERROR') {
-        //             pid = request.responseText;
-        //             console.log(pid + "\n");
-        //             showPhoto();
-        //         }
-        //     }
-        // };
-        // request.open("POST", "/post/save", true);
-        // request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        // request.send("filter=" + filter + "&image=" + data);
+    function uploadPhoto() {
+        console.log('yep');
     }
 
     function showPhoto() {
@@ -111,39 +104,38 @@
         photo.src = '/userData/' + pid + '.png';
         video.style.display = 'none';
         photo.style.display = 'block';
-        $('#camera_active').style.display = 'none';
-        $('#camera_inactive').style.display = 'block';
+        _('camera_active').style.display = 'none';
+        _('camera_inactive').style.display = 'block';
     }
 
     function backToCamera() {
         video.style.display = 'block';
         photo.style.display = 'none';
-        $('#camera_active').style.display = 'block';
-        $('#camera_inactive').style.display = 'none';
+        _('camera_active').style.display = 'block';
+        _('camera_inactive').style.display = 'none';
     }
 
-    $('#approve').addEventListener('click', function (e) {
-        decide(e);
-        e.preventDefault();
-    }, false);
-
-    $('#disapprove').addEventListener('click', function (e) {
-        decide(e);
-        e.preventDefault();
-    }, false);
-
     function decide(e) {
-        var id = e.target.id,
-            request = new XMLHttpRequest();
+        var id = e.currentTarget.id;
 
-        request.onreadystatechange = function () {
+        ajax("/post/decide", ("pid=" + pid + "&decision=" + id), function () {
             if (this.readyState === 4 && this.status === 200) {
                 console.log('OK');
                 backToCamera();
             }
-        };
-        request.open("POST", "/post/decide", true);
-        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        request.send("pid=" + pid + "&decision=" + id);
+        });
     }
+
+    addEventListenerToClass('filter_icon', 'click', toggleFilter);
+
+    _('approve').addEventListener('click', function (e) {
+        decide(e);
+        e.preventDefault();
+    }, false);
+
+    _('disapprove').addEventListener('click', function (e) {
+        decide(e);
+        e.preventDefault();
+    }, false);
+
 })();

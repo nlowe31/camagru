@@ -13,32 +13,38 @@ class PostController extends Controller {
     }
 
     public function all() {
-        $this->displayView('post/index', ['posts' => Post::getAll($this->paginate)]);
+        $this->displayView('post/viewAll', ['posts' => Post::getAll($this->paginate)]);
     }
 
-    public function save() {
+    public function take() {
         if (isset($_POST['image'], $_POST['filter'], $_SESSION['auth'])) {
             $encodedData = str_replace('data:image/png;base64,', '', $_POST['image']);
             $encodedData = str_replace(' ', '+', $encodedData);
             $decodedData = base64_decode($encodedData);
             $img = imagecreatefromstring($decodedData);
-            $img = imagescale($img, 600);
-            imageflip($img, IMG_FLIP_HORIZONTAL);
+            $this->save($img, htmlspecialchars($_POST['filter']), $_SESSION['auth']);
+        }
+        else
+            echo 'ERROR';
+    }
 
-            $filter_loc = 'public/resources/filters/' . htmlspecialchars($_POST['filter']) . '.png';
-            if (file_exists($filter_loc)) {
-                $filter = imagecreatefrompng($filter_loc);
-                $filter = imagescale($filter, 600);
-                imagecopy($img, $filter, 0, 0, 0, 0, imagesx($filter) - 1, imagesy($filter) - 1);
-            }
-            if ($post = Post::create($_SESSION['auth'])) {
-                $filename = 'userData/' . $post->pid . '.png';
-                if (imagepng($img, $filename)) {
-                    $post->src = '/' . $filename;
-                    $post->push();
-                    echo $post->pid;
-                    return;
-                }
+    private function save($img, $filter_name, $uid) {
+        $img = imagescale($img, 600);
+        imageflip($img, IMG_FLIP_HORIZONTAL);
+
+        $filter_loc = 'public/resources/filters/' . $filter_name . '.png';
+        if (file_exists($filter_loc)) {
+            $filter = imagecreatefrompng($filter_loc);
+            $filter = imagescale($filter, 600);
+            imagecopy($img, $filter, 0, 0, 0, 0, imagesx($filter) - 1, imagesy($filter) - 1);
+        }
+        if ($post = Post::create($uid)) {
+            $filename = 'userData/' . $post->pid . '.png';
+            if (imagepng($img, $filename)) {
+                $post->src = '/' . $filename;
+                $post->push();
+                echo $post->pid;
+                return;
             }
         }
         echo 'ERROR';
