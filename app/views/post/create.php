@@ -36,6 +36,6 @@
 
 <script src="/public/js/includes.js"></script>
 <script>
-    var last = <?php echo((array_pop($posts))->pid); ?>;
+    var last = <?php echo(htmlspecialchars((array_pop($posts))->pid)); ?>;
 </script>
 <script src="/public/js/create.js"></script>

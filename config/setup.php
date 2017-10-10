@@ -1,9 +1,5 @@
 <?php
-require_once('app/core/Db.class.php');
-
-echo "Reading configuration...\n";
-
-$config = parse_ini_file('app/core/dbConfig.ini');
+require_once ('database.php');
 
 echo "Connecting to database...\n";
 
@@ -14,14 +10,14 @@ $options = [
 ];
 
 try {
-    $db = new PDO("mysql:host={$config['host']};port={$config['port']};charset={$config['charset']};", $config['username'], $config['password'], $options);
+    $db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD, $options);
 } catch (PDOException $e) {
     die($e->getMessage());
 }
 
 echo "Connection successful.\n";
 
-$sql = file_get_contents('install.sql');
+$sql = file_get_contents('setup.sql');
 try {
     $db->exec($sql);
     echo "Database created successfully.\n";

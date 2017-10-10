@@ -1,5 +1,3 @@
-(function () {
-
     var streaming = false,
         video = _('preview'),
         canvas = _('canvas'),
@@ -83,17 +81,11 @@
         canvas.width = width;
         canvas.height = height;
         canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-        var data = canvas.toDataURL('image/png'),
-            request = "filter=" + filter + "&image=" + data;
+        var data = canvas.toDataURL('image/png');
 
-        ajax("/post/take", request, function () {
-            if (this.readyState === 4 && this.status === 200) {
-                if (this.responseText !== 'ERROR') {
-                    pid = this.responseText;
-                    showPhoto();
-                }
-                console.log(pid + "\n");
-            }
+        ajax("/post/take", ("filter=" + filter + "&image=" + data), function (response) {
+            pid = response;
+            showPhoto();
         });
     }
 
@@ -148,30 +140,24 @@
     function decide(e) {
         var id = e.currentTarget.id;
 
-        ajax("/post/decide", ("pid=" + pid + "&decision=" + id), function () {
-            if (this.readyState === 4 && this.status === 200) {
-                if (this.responseText === 'APPROVE') {
-                    addMiniPost(pid);
-                }
-                backToCamera();
+        ajax("/post/decide", ("pid=" + pid + "&decision=" + id), function (response) {
+            if (response === 'APPROVE') {
+                addMiniPost(pid);
             }
+            backToCamera();
         });
     }
 
     function addMiniPost(pid) {
-        ajax("/post/loadMini", ("pid=" + pid), function () {
-            if (this.readyState === 4 && this.status === 200) {
-                _('mini_posts').insertAdjacentHTML('afterbegin', this.responseText);
-            }
+        ajax("/post/loadMini", ("pid=" + pid), function (response) {
+            _('mini_posts').insertAdjacentHTML('afterbegin', response);
         });
     }
 
     function loadMoreMiniPosts() {
-        ajax("/post/scrollMini", ("last=" + last), function () {
-            if (this.readyState === 4 && this.status === 200) {
-                _('mini_posts').insertAdjacentHTML('beforeend', this.responseText);
-                last = _('mini_posts').lastChild.dataset.pid;
-            }
+        ajax("/post/scrollMini", ("last=" + last), function (response) {
+            _('mini_posts').insertAdjacentHTML('beforeend', response);
+            last = _('mini_posts').lastChild.dataset.pid;
         });
     }
 
@@ -181,13 +167,8 @@
             return ;
         }
         ajax("/post/delete", ("pid=" + pid), function () {
-            if (this.readyState === 4 && this.status === 200) {
-                console.log(this.responseText);
-                if (this.responseText === 'SUCCESS') {
-                    toRemove = $('[class="mini_post"][data-pid="' + pid + '"]');
-                    _('mini_posts').removeChild(toRemove);
-                }
-            }
+            toRemove = $('[class="mini_post"][data-pid="' + pid + '"]');
+            _('mini_posts').removeChild(toRemove);
         });
     }
 
@@ -207,7 +188,3 @@
         loadMoreMiniPosts(e);
         e.preventDefault();
     }, false);
-
-    addEventListenerToClass('mini_post_overlay', 'click', deletePost);
-
-})();

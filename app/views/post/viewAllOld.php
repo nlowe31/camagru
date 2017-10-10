@@ -33,7 +33,7 @@
     var current = 0,
         posts = [];
 
-    ajax("/post/getPosts", ("current=" + current), function () {
+    ajax_old("/post/getPosts", ("current=" + current), function () {
         if (this.readyState === 4 && this.status === 200) {
             response = this.responseText;
         }

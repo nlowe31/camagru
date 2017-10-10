@@ -4,11 +4,9 @@ window.onscroll = function () {
         pageSize = document.documentElement.scrollHeight;
 
     if (posY + winSize > pageSize - 30) {
-        ajax(scrollURL, ("last=" + last), function () {
-            if (this.readyState === 4 && this.status === 200) {
-                _('feed').insertAdjacentHTML('beforeend', this.responseText);
-                last = _('feed').lastChild.dataset.pid;
-            }
+        ajax(scrollURL, ("last=" + last), function (response) {
+            _('feed').insertAdjacentHTML('beforeend', response);
+            last = _('feed').lastChild.dataset.pid;
         });
     }
 };
@@ -26,21 +24,24 @@ function postComment(e) {
         return ;
     text = textbox.value;
 
+    // ajax("/post/postComment", ("pid=" + pid + "&text=" + text), function () {
+    //     if (this.readyState === 4 && this.status === 200) {
+    //         if (this.responseText === 'SUCCESS') {
+    //             reloadComments(pid);
+    //             textbox.value = '';
+    //         }
+    //     }
+    // });
+
     ajax("/post/postComment", ("pid=" + pid + "&text=" + text), function () {
-        if (this.readyState === 4 && this.status === 200) {
-            if (this.responseText === 'SUCCESS') {
-                reloadComments(pid);
-                textbox.value = '';
-            }
-        }
+        reloadComments(pid);
+        textbox.value = '';
     });
 }
 
 function reloadComments(pid) {
-    ajax("/post/loadComments", ("pid=" + pid), function () {
-        if (this.readyState === 4 && this.status === 200) {
-            $('[class="post_comments"][data-pid="' + pid + '"]').innerHTML = this.responseText;
-        }
+    ajax("/post/loadComments", ("pid=" + pid), function (response) {
+        $('[class="post_comments"][data-pid="' + pid + '"]').innerHTML = response;
     });
 }
 
@@ -49,12 +50,8 @@ function toggleLike(e) {
     var pid = e.currentTarget.dataset.pid;
     if (pid === undefined)
         return ;
-    console.log($('[class="post_top"][data-pid="' + pid + '"]'));
-    ajax("/post/like", ("pid=" + pid), function () {
-        if (this.readyState === 4 && this.status === 200) {
-            console.log('response: ' + this.responseText);
-            $('[class="post_top"][data-pid="' + pid + '"]').innerHTML = this.responseText;
-        }
+    ajax("/post/like", ("pid=" + pid), function (response) {
+        $('[class="post_top"][data-pid="' + pid + '"]').innerHTML = response;
     });
 }
 
