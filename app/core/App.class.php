@@ -54,7 +54,6 @@ class App {
         $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
         mail($to, $subject, $message, $headers);
     }
-
 }
 
 ?>
