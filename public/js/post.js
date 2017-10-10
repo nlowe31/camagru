@@ -4,7 +4,7 @@ window.onscroll = function () {
         pageSize = document.documentElement.scrollHeight;
 
     if (posY + winSize > pageSize - 30) {
-        ajax("/post/scroll", ("last=" + last), function () {
+        ajax(scrollURL, ("last=" + last), function () {
             if (this.readyState === 4 && this.status === 200) {
                 _('feed').insertAdjacentHTML('beforeend', this.responseText);
                 last = _('feed').lastChild.dataset.pid;
@@ -56,4 +56,13 @@ function toggleLike(e) {
             $('[class="post_top"][data-pid="' + pid + '"]').innerHTML = this.responseText;
         }
     });
+}
+
+function focusComment(e) {
+    e. preventDefault();
+    var pid = e.currentTarget.dataset.pid;
+    console.log(pid);
+    if (pid === undefined)
+        return ;
+    $('[class="post_new_comment_text"][data-pid="' + pid + '"]').focus();
 }

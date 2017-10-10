@@ -3,7 +3,7 @@
 class App {
 
     protected $controller = 'user';
-    protected $action = 'login';
+    protected $action = 'index';
     protected $params = [];
     
     public function __construct() {
@@ -11,7 +11,7 @@ class App {
 
         if (isset($_SESSION['auth'])) {
             $this->controller = 'post';
-            $this->action = 'all';
+            $this->action = 'index';
         }
 
         if (file_exists('app/controllers/' . $uri[0] . 'Controller.class.php')) {

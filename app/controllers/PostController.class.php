@@ -6,6 +6,11 @@ class PostController extends Controller {
     public function __construct() {
         $this->getModel('post');
         $this->getModel('comment');
+        $this->getModel('user');
+    }
+
+    public function index() {
+        $this->all();
     }
 
     public function create() {
@@ -13,7 +18,22 @@ class PostController extends Controller {
     }
 
     public function all() {
-        $this->displayView('post/viewAll', ['posts' => Post::getAll($this->paginate)]);
+        $this->displayView('post/viewAll', ['posts' => Post::getAll($this->paginate), 'scrollURL' => '/post/scroll']);
+    }
+
+    public function myPosts() {
+        if (isset($_SESSION['auth']))
+            $this->displayView('post/viewAll', ['posts' => Post::getAllFromUser($_SESSION['auth'], $this->paginate), 'scrollURL' => '/post/scrollUser']);
+        else
+            $this->all();
+    }
+
+    public function show($pid = NULL) {
+        print_r($pid);
+        if (isset($pid) && ($post = Post::get($pid)))
+            $this->displayView('post/showPost', ['post' => $post]);
+        else
+            $this->all();
     }
 
     public function take() {
@@ -97,6 +117,12 @@ class PostController extends Controller {
         $this->callView('post/showPosts', ['posts' => Post::getSome($_POST['last'], $this->paginate)]);
     }
 
+    public function scrollUser() {
+        if (!isset($_POST['last'], $_SESSION['auth']))
+            return ;
+        $this->callView('post/showPosts', ['posts' => Post::getSomeFromUser($_SESSION['auth'], $_POST['last'], $this->paginate)]);
+    }
+
     public function scrollMini() {
         if (!isset($_POST['last'], $_SESSION['auth']))
             return ;
@@ -116,11 +142,8 @@ class PostController extends Controller {
     }
 
     public function postComment() {
-        if (!isset($_POST['pid'], $_POST['text'], $_SESSION['auth']) || $_POST['text'] === '') {
-            echo 'ERROR';
-            return ;
-        }
-        if (($post = Post::get($_POST['pid'])) && ($post->addComment($_SESSION['auth'], $_POST['text']))) {
+        if (isset($_POST['pid'], $_SESSION['auth']) && !empty($_POST['text']) && ($post = Post::get($_POST['pid'])) && ($post->addComment($_SESSION['auth'], $_POST['text']))) {
+            $this->notify($post, $_SESSION['auth'], 'comment', $_POST['text']);
             echo 'SUCCESS';
         }
         else
@@ -134,8 +157,10 @@ class PostController extends Controller {
 
         if ($post->isLiked($_SESSION['auth']))
             $post->removeLike($_SESSION['auth']);
-        else
+        else {
             $post->addLike($_SESSION['auth']);
+            $this->notify($post, $_SESSION['auth'], 'like');
+        }
 
         $post = Post::get($post->pid);
         $this->callView('post/showTop', ['post' => $post]);
@@ -153,6 +178,19 @@ class PostController extends Controller {
             }
         }
         echo 'ERROR';
+    }
+
+    private function notify($post, $from, $action, $text = '') {
+        $to = User::get($post->uid);
+        $from = User::get($from);
+        $message = '';
+        if ($to === FALSE || $from === FALSE)
+            return ;
+        if ($action === 'like')
+            $message = '<p>Hi ' . htmlspecialchars($to->firstName) . ',</p><p><i>' . htmlspecialchars($from->username) . '</i> just liked your <a href="' . App::link('post/show/' . $post->pid) . '">post.</a></p><br>Best,<br>The Camagru Team';
+        else if ($action === 'comment')
+            $message = '<p>Hi ' . htmlspecialchars($to->firstName) . ',</p><br><p><i>' . htmlspecialchars($from->username) . '</i> just commented on your <a href="' . App::link('post/show/' . $post->pid) . '">post.</a></p><p>"<quote>' . htmlspecialchars($text) . '</quote>"</p><br>Best,<br>The Camagru Team';
+        App::email($to->email, 'New ' . $action, $message);
     }
 }
 

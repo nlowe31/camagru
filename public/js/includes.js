@@ -14,6 +14,11 @@ function ajax(url, data, f) {
     request.send(data);
 }
 
+function onEnter(f, e) {
+    if (e.keyCode === 13)
+        f(e);
+}
+
 function addEventListenerToClass(className, event, f) {
     var classElements = document.getElementsByClassName(className);
     for (var i = 0; i < classElements.length; i++) {

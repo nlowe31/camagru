@@ -8,6 +8,10 @@ class UserController extends Controller {
         $this->getCurrentUser();
     }
 
+    public function index() {
+        $this->login();
+    }
+
     private function getCurrentUser() {
         if (isset($this->user))
             return TRUE;
@@ -63,7 +67,7 @@ class UserController extends Controller {
         $_SESSION['auth'] = $this->user->uid;
         // echo "User {$this->user->firstName} {$this->user->lastName} currently logged in.\n";
         // echo "User {$_SESSION['user']->firstName} {$_SESSION['user']->lastName} logged in successfully.\n";
-        App::go('/');
+        App::go('');
         // echo App::link('pages/test');
         // header('Location: ' . App::link('pages/test'));
     }
@@ -141,6 +145,7 @@ class UserController extends Controller {
                     $this->user->email = htmlspecialchars($_POST['email']);
                     $this->user->confirmed = 0;
                     $this->user->push();
+                    unset($_SESSION['auth']);
                     return $this->sendConfirmationEmail();
                 }
                 else

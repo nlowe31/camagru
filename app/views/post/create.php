@@ -1,45 +1,4 @@
-<style>
-    #preview {
-        transform: scaleX(-1);
-    }
-
-    #still, #canvas, #camera_inactive {
-        display: none;
-    }
-
-    #dashboard {
-        margin: auto;
-        text-align: center;
-        display: block;
-    }
-
-    #photobooth, #sidebar {
-        vertical-align: top;
-        margin: 4em 2em auto;
-    }
-
-    #sidebar {
-        /*float: right;*/
-        position: relative;
-        display: inline-block;
-        width: 10em;
-        overflow: auto;
-        height: 38em;
-    }
-
-    #photobooth {
-        /*float: left;*/
-        position: relative;
-        display: inline-block;
-        width: 35em;
-        min-height: 38em;
-    }
-
-    #shutter, #upload_button {
-        opacity: 0.2;
-    }
-
-</style>
+<link rel="stylesheet" href="/public/style/create.css">
 
 <div id="dashboard">
     <div class="post" id="photobooth">
@@ -79,4 +38,4 @@
 <script>
     var last = <?php echo((array_pop($posts))->pid); ?>;
 </script>
-<script src="/public/js/cam.js"></script>
+<script src="/public/js/create.js"></script>
