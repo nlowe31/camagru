@@ -1,13 +1,22 @@
 window.onscroll = function () {
     var posY = window.pageYOffset,
         winSize = window.innerHeight,
-        pageSize = document.documentElement.scrollHeight;
+        pageSize = document.documentElement.scrollHeight,
+        lastPost = _('feed').lastElementChild,
+        lastID;
 
     if (posY + winSize > pageSize - 30) {
-        ajax(scrollURL, ("last=" + last), function (response) {
-            _('feed').insertAdjacentHTML('beforeend', response);
-            last = _('feed').lastChild.dataset.pid;
-        });
+        if (Boolean(lastPost)) {
+            lastID = lastPost.dataset.pid;
+            ajax(scrollURL, ("last=" + lastID), function (response) {
+                if (Boolean(response)) {
+                    _('feed').insertAdjacentHTML('beforeend', response);
+                    _('post_end').style.display = 'none';
+                }
+                else
+                    _('post_end').style.display = 'block';
+            });
+        }
     }
 };
 
@@ -16,7 +25,6 @@ function postComment(e) {
     var pid = e.currentTarget.dataset.pid,
         textbox,
         text;
-    console.log(pid);
     if (pid === undefined)
         return ;
     textbox = $('[class="post_new_comment_text"][data-pid="' + pid + '"]');
@@ -49,7 +57,6 @@ function toggleLike(e) {
 function focusComment(e) {
     e. preventDefault();
     var pid = e.currentTarget.dataset.pid;
-    console.log(pid);
     if (pid === undefined)
         return ;
     $('[class="post_new_comment_text"][data-pid="' + pid + '"]').focus();

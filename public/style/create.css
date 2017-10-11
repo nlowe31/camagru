@@ -36,3 +36,44 @@
 #shutter, #upload_button {
     opacity: 0.2;
 }
+
+.mini_post {
+    position: relative;
+    width: inherit;
+    min-height: 10em;
+    margin-bottom: 0.5em;
+    overflow: hidden;
+    display: block;
+}
+
+.mini_post_photo, .mini_post_overlay {
+    position: absolute;
+}
+
+.mini_post_overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    height: 4em;
+    width: 4em;
+    border-radius: 0.8em;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.mini_post_overlay_icon {
+    height: 1.6em;
+    margin: 1.2em;
+}
+
+.mini_post_photo {
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.mini_post:hover .mini_post_overlay {
+    display: block;
+}

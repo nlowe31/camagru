@@ -142,6 +142,8 @@ input:focus {
 }
 
 footer {
+    border-top: 1px solid #efefef;
+    padding: 2em;
     font-size: 0.7em;
     font-style: italic;
     text-align: center;

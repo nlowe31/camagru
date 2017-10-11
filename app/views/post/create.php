@@ -22,20 +22,17 @@
         </div>
 
         <div id="camera_inactive" class="post_icontray">
-            <img id="disapprove" class="post_icon_large" src="/public/resources/icons/dislike.png"/>
-            <img id="approve" class="post_icon_large" src="/public/resources/icons/like.png"/>
+            <img id="disapprove" onclick="decide(event);" class="post_icon_large" src="/public/resources/icons/dislike.png"/>
+            <img id="approve" onclick="decide(event);" class="post_icon_large" src="/public/resources/icons/like.png"/>
         </div>
     </div>
     <div id="sidebar" class="box">
         <div id="mini_posts">
             <?php require_once('showMiniPosts.php'); ?>
         </div>
-        <img id="load_more" class="post_icon" src="/public/resources/icons/next-1.png"/>
+        <img id="load_more" onclick="loadMoreMiniPosts(event);" class="post_icon" src="/public/resources/icons/next-1.png"/>
     </div>
 </div>
 
 <script src="/public/js/includes.js"></script>
-<script>
-    var last = <?php echo(htmlspecialchars((array_pop($posts))->pid)); ?>;
-</script>
 <script src="/public/js/create.js"></script>

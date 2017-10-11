@@ -112,7 +112,7 @@ class PostController extends Controller {
     }
 
     public function scroll() {
-        if (!isset($_POST['last']))
+        if (!isset($_POST['last']) || $_POST['last'] === "-1")
             return ;
         $this->callView('post/showPosts', ['posts' => Post::getSome($_POST['last'], $this->paginate)]);
     }

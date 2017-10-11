@@ -4,17 +4,12 @@ require_once('showPosts.php');
 ?>
 </div>
 
-<button id="more">Load More</button>
+<div id="post_end"><p>That's it!<br>No more posts to show.<br><a href="/post/create">Create a new post</a></p></div>
+
 <script src="/public/js/includes.js"></script>
 <script>
 <?php
-    if (empty($posts)) {
-        echo 'var last = 0;';
-    }
-    else {
-        echo 'var last = ' . htmlspecialchars((array_pop($posts))->pid) . ';';
-    }
-    echo 'scrollURL = ' . $scrollURL ';';
+    echo 'scrollURL = "' . $scrollURL . '";';
 ?>
 </script>
 <script src="/public/js/post.js"></script>

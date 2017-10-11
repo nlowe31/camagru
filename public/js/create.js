@@ -31,7 +31,7 @@
             video.play();
         },
         function (err) {
-            console.log("An error occured! " + err);
+            console.log("An error occured generating live preview: " + err);
         }
     );
 
@@ -73,11 +73,9 @@
             _(id).className = 'post_icon_selected filter_icon';
             filter = filterName;
         }
-        console.log(filter);
     }
 
     function takePhoto() {
-        console.log("Filter name: " + filter);
         canvas.width = width;
         canvas.height = height;
         canvas.getContext('2d').drawImage(video, 0, 0, width, height);
@@ -95,23 +93,19 @@
         var file = _('upload').files[0],
             formData = new FormData();
 
-        if (!file.type.match('image.*'))
-            return ;
-
         formData.append('image', file, file.name);
         formData.append('filter', filter);
 
         var request = new XMLHttpRequest();
         request.open('post', '/post/upload', true);
-        request.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                console.log(this.responseText);
-                _('upload_button').src = "/public/resources/icons/upload.png";
-                if (this.responseText !== 'ERROR') {
-                    pid = this.responseText;
-                    showPhoto();
-                }
-                console.log(pid + "\n");
+        request.onload = function () {
+            _('upload_button').src = "/public/resources/icons/upload.png";
+            if (this.responseText !== 'ERROR' && Boolean(this.responseText)) {
+                pid = this.responseText;
+                showPhoto();
+            }
+            else {
+                alert("Unable to save photo. Images must of type .jpg or .png and must be less than 2 MB in size.");
             }
         };
         request.send(formData);
@@ -122,7 +116,6 @@
         if (pid === undefined) {
             return ;
         }
-        console.log("showPhoto(" + pid + ")\n");
         photo.src = '/userData/' + pid + '.png';
         video.style.display = 'none';
         photo.style.display = 'block';
@@ -155,10 +148,14 @@
     }
 
     function loadMoreMiniPosts() {
-        ajax("/post/scrollMini", ("last=" + last), function (response) {
-            _('mini_posts').insertAdjacentHTML('beforeend', response);
-            last = _('mini_posts').lastChild.dataset.pid;
-        });
+        var lastPost = _('mini_posts').lastElementChild,
+            lastID;
+        if (lastPost !== undefined) {
+            lastID = lastPost.dataset.pid;
+            ajax("/post/scrollMini", ("last=" + lastID), function (response) {
+                _('mini_posts').insertAdjacentHTML('beforeend', response);
+            });
+        }
     }
 
     function deletePost(e) {
@@ -174,17 +171,17 @@
 
     addEventListenerToClass('filter_icon', 'click', toggleFilter);
 
-    _('approve').addEventListener('click', function (e) {
-        decide(e);
-        e.preventDefault();
-    }, false);
+    // _('approve').addEventListener('click', function (e) {
+    //     decide(e);
+    //     e.preventDefault();
+    // }, false);
+    //
+    // _('disapprove').addEventListener('click', function (e) {
+    //     decide(e);
+    //     e.preventDefault();
+    // }, false);
 
-    _('disapprove').addEventListener('click', function (e) {
-        decide(e);
-        e.preventDefault();
-    }, false);
-
-    _('load_more').addEventListener('click', function (e) {
-        loadMoreMiniPosts(e);
-        e.preventDefault();
-    }, false);
+    // _('load_more').addEventListener('click', function (e) {
+    //     loadMoreMiniPosts(e);
+    //     e.preventDefault();
+    // }, false);
