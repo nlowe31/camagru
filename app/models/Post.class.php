@@ -51,10 +51,6 @@ class Post {
         $this->comments = Db::select_all_object('SELECT c.*, u.username FROM comments c LEFT JOIN users u ON C.uid=u.uid WHERE pid=? GROUP BY c.cid', [$this->pid], 'Comment');
     }
 
-//    public function getLikes() {
-//        $this->likes = Db::select_all('SELECT * FROM likes WHERE pid=?', [$this->pid]);
-//    }
-
     public function addLike($uid) {
         return Db::insert('INSERT INTO likes (pid, uid) VALUES (?, ?)', [$this->pid, $uid]);
     }

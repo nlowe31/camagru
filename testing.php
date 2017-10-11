@@ -135,8 +135,12 @@ require_once('app/controllers/PostController.class.php');
 //print_r(Post::getAll(10));
 //print_r(Post::getAllFromUser(19, 10));
 
-$user = User::findByEmail('nlowe31@gmail.com');
-$user->confirmed = 1;
-$user->push();
+// $user = User::findByEmail('nlowe31@gmail.com');
+// $user->confirmed = 1;
+// $user->push();
+
+// $app = new App();
+
+phpinfo();
 
 ?>

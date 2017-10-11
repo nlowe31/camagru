@@ -30,7 +30,8 @@ class App {
             }
         }
         
-        $this->params = array_values($uri);
+        if (!empty($uri))
+            $this->params = array_values($uri);
 
         call_user_func_array([$this->controller, $this->action], $this->params);
     }

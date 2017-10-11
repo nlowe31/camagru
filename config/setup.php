@@ -17,7 +17,7 @@ try {
 
 echo "Connection successful.\n";
 
-$sql = file_get_contents('setup.sql');
+$sql = file_get_contents('config/setup.sql');
 try {
     $db->exec($sql);
     echo "Database created successfully.\n";
@@ -25,5 +25,7 @@ try {
 catch (PDOException $e) {
     die($e->getMessage());
 }
+
+
 
 ?>

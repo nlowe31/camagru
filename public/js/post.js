@@ -24,15 +24,6 @@ function postComment(e) {
         return ;
     text = textbox.value;
 
-    // ajax("/post/postComment", ("pid=" + pid + "&text=" + text), function () {
-    //     if (this.readyState === 4 && this.status === 200) {
-    //         if (this.responseText === 'SUCCESS') {
-    //             reloadComments(pid);
-    //             textbox.value = '';
-    //         }
-    //     }
-    // });
-
     ajax("/post/postComment", ("pid=" + pid + "&text=" + text), function () {
         reloadComments(pid);
         textbox.value = '';
