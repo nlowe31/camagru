@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS users (
     `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `registration` varchar(255) COLLATE utf8_unicode_ci,
     `confirmed` tinyint(1) NOT NULL DEFAULT 0,
+    `notifications` tinyint(1) NOT NULL DEFAULT 1,
     UNIQUE (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

@@ -10,6 +10,7 @@ class User {
     public $created;
     public $registration;
     public $confirmed;
+    public $notifications;
 
     public function __construct() {}
 
@@ -39,7 +40,7 @@ class User {
     }
 
     public function push() {
-        $count = Db::update('UPDATE users SET username=?, email=?, password=?, firstName=?, lastName=?, confirmed=?, registration=? WHERE uid=?', [$this->username, $this->email, $this->password, $this->firstName, $this->lastName, $this->confirmed, $this->registration, $this->uid]);
+        $count = Db::update('UPDATE users SET username=?, email=?, password=?, firstName=?, lastName=?, confirmed=?, registration=?, notifications=? WHERE uid=?', [$this->username, $this->email, $this->password, $this->firstName, $this->lastName, $this->confirmed, $this->registration, $this->notifications, $this->uid]);
         if ($count > 0)
             return TRUE;
         return FALSE;

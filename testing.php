@@ -141,6 +141,6 @@ require_once('app/controllers/PostController.class.php');
 
 // $app = new App();
 
-phpinfo();
+echo User::auth('nlowe31', 'lolz');
 
 ?>

@@ -18,7 +18,8 @@ class PostController extends Controller {
     }
 
     public function all() {
-        $this->displayView('post/viewAll', ['posts' => Post::getAll($this->paginate), 'scrollURL' => '/post/scroll']);
+        $auth = (isset($_SESSION['auth'])) ? true : false;
+        $this->displayView('post/viewAll', ['posts' => Post::getAll($this->paginate), 'scrollURL' => '/post/scroll', 'auth' => $auth]);
     }
 
     public function myPosts() {
@@ -29,9 +30,10 @@ class PostController extends Controller {
     }
 
     public function show($pid = NULL) {
+        $auth = (isset($_SESSION['auth'])) ? true : false;
         print_r($pid);
         if (isset($pid) && ($post = Post::get($pid)))
-            $this->displayView('post/showPost', ['post' => $post]);
+            $this->displayView('post/showPost', ['post' => $post, 'auth' => $auth]);
         else
             $this->all();
     }
@@ -184,7 +186,7 @@ class PostController extends Controller {
         $to = User::get($post->uid);
         $from = User::get($from);
         $message = '';
-        if ($to === FALSE || $from === FALSE)
+        if ($to === FALSE || !($to->notifications) || $from === FALSE)
             return ;
         if ($action === 'like')
             $message = '<p>Hi ' . htmlspecialchars($to->firstName) . ',</p><p><i>' . htmlspecialchars($from->username) . '</i> just liked your <a href="' . App::link('post/show/' . $post->pid) . '">post.</a></p><br>Best,<br>The Camagru Team';

@@ -11,9 +11,11 @@
                 require('showComments.php');
             ?>
         </div>
-        <div class="post_new_comment">
-            <input class="post_new_comment_text" onkeydown="onEnter(postComment, event);" data-pid="<?= htmlspecialchars($post->pid) ?>" type="text" placeholder="Post a comment"/>
-            <a href="#" class="post_new_comment_submit" onclick="postComment(event);" data-pid="<?= htmlspecialchars($post->pid) ?>"><img class="post_icon post_new_comment_icon" title="Submit" src="/public/resources/icons/paper-plane.png"/></a>
-        </div>
+        <? if (isset($auth) && $auth) { ?>
+            <div class="post_new_comment">
+                <input class="post_new_comment_text" onkeydown="onEnter(postComment, event);" data-pid="<?= htmlspecialchars($post->pid) ?>" type="text" placeholder="Post a comment"/>
+                <a href="#" class="post_new_comment_submit" onclick="postComment(event);" data-pid="<?= htmlspecialchars($post->pid) ?>"><img class="post_icon post_new_comment_icon" title="Submit" src="/public/resources/icons/paper-plane.png"/></a>
+            </div>
+        <? } ?>
     </div>
 </div>
