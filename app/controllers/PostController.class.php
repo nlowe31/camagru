@@ -14,7 +14,10 @@ class PostController extends Controller {
     }
 
     public function create() {
-        $this->displayView('post/create', ['posts' => Post::getAllFromUser($_SESSION['auth'], $this->paginate)]);
+        if (isset($_SESSION['auth']))
+            $this->displayView('post/create', ['posts' => Post::getAllFromUser($_SESSION['auth'], $this->paginate)]);
+        else
+            App::go('user/login');          
     }
 
     public function all() {

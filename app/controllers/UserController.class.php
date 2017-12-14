@@ -45,8 +45,8 @@ class UserController extends Controller {
     }
 
     public function auth() {
-        if (isset($_POST['Login'], $_POST['email'], $_POST['password']) && $_POST['Login'] == 'Login') {
-            if ($this->user = User::findByEmail($_POST['email'])) {
+        if (isset($_POST['Login'], $_POST['username'], $_POST['password']) && $_POST['Login'] == 'Login') {
+            if ($this->user = User::findByUsername($_POST['username'])) {
                 if ($this->user->authenticate($_POST['password']) === TRUE) {
                     $_SESSION['user'] = $this->user->uid;
                     return $this->loginSuccess();
@@ -85,7 +85,7 @@ class UserController extends Controller {
     }
 
     public function createUser() {
-        if (isset($_POST['Submit'], $_POST['username'], $_POST['email'], $_POST['firstName'], $_POST['lastName'], $_POST['password'], $_POST['confirm']) && $_POST['Submit'] == 'Sign Up') {
+        if (isset($_POST['Submit'], $_POST['username'], $_POST['email'], $_POST['firstName'], $_POST['lastName'], $_POST['password'], $_POST['confirm']) && !(empty($_POST['username'])) && !(empty($_POST['firstName'])) && !(empty($_POST['lastName'])) && $_POST['Submit'] == 'Sign Up') {
             if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 if ($this->validatePassword($_POST['password'])) {
                     if ($_POST['password'] === $_POST['confirm']) {
@@ -165,7 +165,7 @@ class UserController extends Controller {
             else
                 return $this->myAccount('Invalid email address.');
         }
-        else if (isset($_POST['Submit']) && $_POST['Submit'] === 'Change Username' && isset($_POST['username'])) {
+        else if (isset($_POST['Submit']) && $_POST['Submit'] === 'Change Username' && isset($_POST['username']) && !(empty($_POST['username']))) {
                 if (User::findByUsername($_POST['username']) === FALSE) {
                     $this->user->username = $_POST['username'];
                     $this->user->push();
@@ -187,7 +187,7 @@ class UserController extends Controller {
             else
                 return $this->myAccount('Password must be at least 6 characters and contain at least one uppercase letter, lowercase letter, and number.');
         }
-        else if (isset($_POST['Submit']) && $_POST['Submit'] === 'Change Name' && isset($_POST['firstName'], $_POST['lastName'])) {
+        else if (isset($_POST['Submit']) && $_POST['Submit'] === 'Change Name' && isset($_POST['firstName'], $_POST['lastName']) && !(empty($_POST['firstName'])) && !(empty($_POST['lastName']))) {
             $this->user->firstName = $_POST['firstName'];
             $this->user->lastName = $_POST['lastName'];
             $this->user->push();
@@ -203,6 +203,8 @@ class UserController extends Controller {
             $this->user->push();
             return $this->myAccount('Notifications ' . (($this->user->notifications) ? 'enabled.' : 'disabled.'));
         }
+        else
+            return $this->myAccount();
     }
 
     public function passwordResetRequest($error = '') {

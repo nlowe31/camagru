@@ -14,8 +14,10 @@ try {
 } catch (PDOException $e) {
     die($e->getMessage());
 }
-
 echo "Connection successful.\n";
+
+$db->exec('DROP DATABASE camagru');
+echo "Previous data removed successfully.\n";
 
 $sql = file_get_contents('config/setup.sql');
 try {
@@ -25,7 +27,5 @@ try {
 catch (PDOException $e) {
     die($e->getMessage());
 }
-
-
 
 ?>
