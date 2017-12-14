@@ -2,23 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75a3f672-a7ea-4fa3-866e-15c002b7a1d3" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/16.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/17.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/18.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/19.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/20.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/21.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/22.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/23.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/24.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/25.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/26.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/27.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/28.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/29.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/30.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/31.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/userData/32.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -174,6 +158,7 @@
         <option value="$PROJECT_DIR$/public/js/post.js" />
         <option value="$PROJECT_DIR$/public/style/post.css" />
         <option value="$PROJECT_DIR$/public/style/main.css" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -195,9 +180,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="y" value="22" />
-    <option name="width" value="1440" />
-    <option name="height" value="826" />
+    <option name="y" value="23" />
+    <option name="width" value="1572" />
+    <option name="height" value="1364" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -273,7 +258,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -349,6 +333,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -425,6 +410,8 @@
       <workItem from="1507834241105" duration="190000" />
       <workItem from="1509211732389" duration="501000" />
       <workItem from="1509291666324" duration="20000" />
+      <workItem from="1513272881729" duration="143000" />
+      <workItem from="1513273157893" duration="256000" />
     </task>
     <task id="LOCAL-00001" summary="pretty much done">
       <created>1507644611003</created>
@@ -458,7 +445,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117807000" />
+    <option name="totallyTimeSpent" value="118206000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -470,12 +457,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="826" extended-state="0" />
+    <frame x="0" y="23" width="1572" height="1364" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14027777" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12849873" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.49444443" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.50555557" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2048611" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18765904" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891247" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -531,7 +518,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/userData/115.png" />
     <entry file="file://$PROJECT_DIR$/userData/116.png" />
     <entry file="file://$PROJECT_DIR$/app/views/post/showComments.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -677,13 +663,7 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/core/dbConfig.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="17" lean-forward="true" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/core/dbConfig.ini" />
     <entry file="file://$PROJECT_DIR$/config/database.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
@@ -820,31 +800,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/8f8bc4fc-f25d-4187-8a6b-5fdb1b5b583c/console.sql">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/8f8bc4fc-f25d-4187-8a6b-5fdb1b5b583c/console.sql" />
+    <entry file="das://table:/d552fd17/8f8bc4fc-f25d-4187-8a6b-5fdb1b5b583c/camagru.comments" />
+    <entry file="das://table:/d552fd17/8f8bc4fc-f25d-4187-8a6b-5fdb1b5b583c/camagru.users" />
+    <entry file="das://table:/d552fd17/8f8bc4fc-f25d-4187-8a6b-5fdb1b5b583c/camagru.posts" />
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/d552fd17/8f8bc4fc-f25d-4187-8a6b-5fdb1b5b583c/camagru.comments">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/d552fd17/8f8bc4fc-f25d-4187-8a6b-5fdb1b5b583c/camagru.users">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://table:/d552fd17/8f8bc4fc-f25d-4187-8a6b-5fdb1b5b583c/camagru.posts">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
+        <state relative-caret-position="30">
+          <caret line="2" column="21" lean-forward="true" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
         </state>
       </provider>
     </entry>

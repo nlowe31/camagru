@@ -16,8 +16,11 @@ try {
 }
 echo "Connection successful.\n";
 
-$db->exec('DROP DATABASE camagru');
-echo "Previous data removed successfully.\n";
+try {
+    $db->exec('DROP DATABASE camagru');
+    echo "Previous data removed successfully.\n";
+}
+catch (PDOException $e) { }    
 
 $sql = file_get_contents('config/setup.sql');
 try {

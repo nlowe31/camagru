@@ -17,7 +17,7 @@ class Db {
 			];
 			try {
 				$config = parse_ini_file('config/database.ini');				
-				self::$instance = new PDO("mysql:host={$config['host']};port={$config['port']};dbname={$config['dbName']};charset={$config['charset']}", $config['username'], $config['password'], $options);
+				self::$instance = new PDO("mysql:unix_socket={$config['socket']};port={$config['port']};dbname={$config['dbName']};charset={$config['charset']}", $config['username'], $config['password'], $options);
 			} catch (PDOException $e) {
 				die($e->getMessage());
 			}
