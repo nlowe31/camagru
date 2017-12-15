@@ -9,11 +9,6 @@ class App {
     public function __construct() {
         $uri = self::parseURI();
 
-        // if (isset($_SESSION['auth'])) {
-        //     $this->controller = 'post';
-        //     $this->action = 'index';
-        // }
-
         if (file_exists('app/controllers/' . $uri[0] . 'Controller.class.php')) {
             $this->controller = $uri[0];
             unset($uri[0]);
