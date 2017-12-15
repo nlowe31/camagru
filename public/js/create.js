@@ -8,34 +8,34 @@
         width = _('photobooth').offsetwidth || _('photobooth').clientWidth,
         height = 0,
         pid = undefined,
-        filter = undefined;
+        filter = undefined,
+        webcam = true;
 
     navigator.getMedia = (navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia ||
         navigator.msGetUserMedia);
 
-    navigator.getMedia(
-        {
-            video: true,
-            audio: false
-        },
-        function (stream) {
-            // if (navigator.mozGetUserMedia) {
-            //     video.mozSrcObject = stream;
-            // } else {
+    if (navigator.getMedia) {
+        navigator.getMedia(
+            {
+                video: true,
+                audio: false
+            },
+            function (stream) {
                 var vendorURL = window.URL || window.webkitURL;
                 video.src = vendorURL.createObjectURL(stream);
                 localstream = stream;
-            // }
-            video.play();
-        },
-        function (err) {
-            console.log("An error occured generating live preview: " + err);
-        }
-    );
+                video.play();
+            },
+            function (err) {
+                webcam = false;
+                console.log("Webcam not available.");
+            }
+        );
+    }
 
-    video.addEventListener('canplay', function (ev) {
+    video.addEventListener('canplay', function (ev) { 
         ev.preventDefault();
         if (!streaming) {
             height = video.videoHeight / (video.videoWidth / width);
@@ -54,12 +54,14 @@
             filterName = id.split('_')[1];
         if (filters.indexOf(filterName) !== -1) {
             if (filter === undefined) {
-                shutter.style.opacity = 1;
-                upload_button.style.opacity = 1;
-                shutter.addEventListener('click', function (e) {
-                    takePhoto();
-                    e.preventDefault();
-                }, false);
+                if (webcam === true) {
+                    shutter.style.opacity = 1;
+                    shutter.addEventListener('click', function (e) {
+                        takePhoto();
+                        e.preventDefault();
+                    }, false);
+                }
+                upload_button.style.opacity = 1;                
                 upload_button.addEventListener('click', function (e) {
                     _('upload').click();
                     e.preventDefault();
@@ -150,7 +152,7 @@
     function loadMoreMiniPosts() {
         var lastPost = _('mini_posts').lastElementChild,
             lastID;
-        if (lastPost !== undefined) {
+        if (Boolean(lastPost)) {
             lastID = lastPost.dataset.pid;
             ajax("/post/scrollMini", ("last=" + lastID), function (response) {
                 _('mini_posts').insertAdjacentHTML('beforeend', response);
