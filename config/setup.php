@@ -1,7 +1,8 @@
+<html>
 <?php
 require_once ('database.php');
 
-echo "Connecting to database...\n";
+echo "Connecting to database...\n<br>";
 
 $options = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -11,24 +12,26 @@ $options = [
 
 try {
     $db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD, $options);
-} catch (PDOException $e) {
-    die($e->getMessage());
-}
-echo "Connection successful.\n";
-
-try {
+    echo "Connection successful.\n<br>";
     $db->exec('DROP DATABASE camagru');
-    echo "Previous data removed successfully.\n";
+    echo "Previous data removed successfully.\n<br>";
+} catch (PDOException $e) {
+    try {
+        $db = new PDO('mysql:host=localhost;', $DB_USER, $DB_PASSWORD, $options);
+        echo "Connection successful.\n<br>";
+        echo "No previous data detected.\n<br>";
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
 }
-catch (PDOException $e) { }    
 
-$sql = file_get_contents('config/setup.sql');
 try {
+    $sql = file_get_contents('setup.sql');
     $db->exec($sql);
-    echo "Database created successfully.\n";
-}
-catch (PDOException $e) {
+    echo "Database created successfully.\n<br>";
+} catch (PDOException $e) {
     die($e->getMessage());
 }
 
 ?>
+</html>

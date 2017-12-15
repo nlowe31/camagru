@@ -46,13 +46,12 @@ class UserController extends Controller {
 
     public function auth() {
         if (isset($_POST['Login'], $_POST['username'], $_POST['password']) && $_POST['Login'] == 'Login') {
-            if ($this->user = User::findByUsername($_POST['username'])) {
-                if ($this->user->authenticate($_POST['password']) === TRUE) {
-                    $_SESSION['user'] = $this->user->uid;
-                    return $this->loginSuccess();
-                }
-            return $this->login("Invalid username/password combination.");
+            if (($this->user = User::findByUsername($_POST['username'])) && $this->user->authenticate($_POST['password']) === TRUE) {
+                $_SESSION['user'] = $this->user->uid;
+                return $this->loginSuccess();
             }
+            else
+                return $this->login("Invalid username/password combination.");
         }
         return $this->login();
     }
@@ -65,11 +64,7 @@ class UserController extends Controller {
         if ($this->user->confirmed == 0)
             return $this->unconfirmedEmail();
         $_SESSION['auth'] = $this->user->uid;
-        // echo "User {$this->user->firstName} {$this->user->lastName} currently logged in.\n";
-        // echo "User {$_SESSION['user']->firstName} {$_SESSION['user']->lastName} logged in successfully.\n";
         App::go('');
-        // echo App::link('pages/test');
-        // header('Location: ' . App::link('pages/test'));
     }
     
     public function signup($error = '') {
@@ -199,7 +194,7 @@ class UserController extends Controller {
             return $this->login('User successfully deleted.');
         }
         else if (isset($_POST['Submit']) && $_POST['Submit'] === 'Toggle Notifications') {
-            $this->user->notifications = !($this->user->notifications);
+            $this->user->notifications = (($this->user->notifications) ? 0 : 1);
             $this->user->push();
             return $this->myAccount('Notifications ' . (($this->user->notifications) ? 'enabled.' : 'disabled.'));
         }
@@ -219,7 +214,7 @@ class UserController extends Controller {
 
                 $to = ($_POST['email']);
                 $subject = 'Camagru: Password reset';
-                $message = "Hi {$this->user->firstName},<br><br>You can reset your password by clicking the link below:<br><br><a href=\"http://localhost:8080/user/reset/{$this->user->email}/{$this->user->registration}\">Reset Password/a><br><br>Best,<br>The Camagru Team";
+                $message = "Hi {$this->user->firstName},<br><br>You can reset your password by clicking the link below:<br><br><a href=\"http://localhost:8080/user/resetPassword/{$this->user->email}/{$this->user->registration}\">Reset Password</a><br><br>Best,<br>The Camagru Team";
                 App::email($to, $subject, $message);
                 return $this->passwordResetRequest('Check your email for a link to reset your password.');
             }
@@ -231,10 +226,10 @@ class UserController extends Controller {
             $_SESSION['user'] = $this->user->uid;
             return $this->changePassword();
         }
-        return $this->passwordReset('An error occurred.');
+        return $this->passwordResetRequest('An error occurred. Your password reset link may have expired.');
     }
 
-    private function changePassword() {
+    private function changePassword($error = '') {
         if (!($this->getCurrentUser()))
             return $this->passwordReset('An error occurred.');            
         $this->displayView('user/changePassword', ['error' => $error]);
@@ -248,7 +243,7 @@ class UserController extends Controller {
                 if ($_POST['password'] === $_POST['confirm']) {
                     $this->user->setPassword($_POST['password']);
                     $this->user->push();
-                    return $this->loginSuccess('Password changed successfully.');
+                    return $this->login('Password changed successfully. Please log in with your new credentials.');
                 }
                 else
                     return $this->changePassword('The passwords entered do not match one another.');

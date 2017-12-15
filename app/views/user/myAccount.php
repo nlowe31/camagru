@@ -4,18 +4,18 @@
         <p class="error"><?=$error?></p>
         <form method="POST" action="/user/changeUser">
             <p><b>Username: </b><?php echo(htmlspecialchars($user->username))?></p>
-            <p><input type="text" class="text_box" placeholder="New Username" name="username" /></p>
+            <p><input type="text" class="text_box" placeholder="New Username" name="username" maxlength="254" /></p>
             <p><input type="submit" class="button" name="Submit" value="Change Username" /></p>
         </form>
         <form method="POST" action="/user/changeUser">
             <p><b>Email: </b><?php echo(htmlspecialchars($user->email))?></p>
-            <p><input type="email" class="text_box" placeholder="New Email" name="email" /></p>
+            <p><input type="email" class="text_box" placeholder="New Email" name="email" maxlength="254" /></p>
             <p><input type="submit" class="button" name="Submit" value="Change Email" /></p>
         </form>
         <form method="POST" action="/user/changeUser">
             <p><b>Name: </b><?php echo(htmlspecialchars($user->firstName . ' ' . $user->lastName))?></p>
-            <p><input type="text" class="text_box" placeholder="First Name" name="firstName" />
-            <input type="text" class="text_box" placeholder="Last Name" name="lastName" /></p>
+            <p><input type="text" class="text_box" placeholder="First Name" name="firstName" maxlength="254" />
+            <input type="text" class="text_box" placeholder="Last Name" name="lastName" maxlength="254" /></p>
             <p><input type="submit" class="button" name="Submit" value="Change Name" /></p>
         </form>
         <form method="POST" action="/user/changeUser">

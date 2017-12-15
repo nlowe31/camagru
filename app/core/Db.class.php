@@ -16,9 +16,10 @@ class Db {
 			    PDO::ATTR_EMULATE_PREPARES   => false,
 			];
 			try {
-				$config = parse_ini_file('config/database.ini');				
-				self::$instance = new PDO("mysql:unix_socket={$config['socket']};port={$config['port']};dbname={$config['dbName']};charset={$config['charset']}", $config['username'], $config['password'], $options);
+				require('config/database.php');
+				self::$instance = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD, $options);
 			} catch (PDOException $e) {
+				echo "Error connecting to database.\n";
 				die($e->getMessage());
 			}
 		}

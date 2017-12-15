@@ -159,14 +159,13 @@ class PostController extends Controller {
         if (!isset($_POST['pid'], $_SESSION['auth']))
             return ;
         $post = Post::get($_POST['pid']);
-
-        if ($post->isLiked($_SESSION['auth']))
-            $post->removeLike($_SESSION['auth']);
-        else {
-            $post->addLike($_SESSION['auth']);
-            $this->notify($post, $_SESSION['auth'], 'like');
+        if ($post->isLiked($_SESSION['auth'])) {          
+            $post->removeLike($_SESSION['auth']);            
         }
-
+        else {
+            $post->addLike($_SESSION['auth']);                   
+            $this->notify($post, $_SESSION['auth'], 'like');                  
+        }
         $post = Post::get($post->pid);
         $this->callView('post/showTop', ['post' => $post]);
     }
@@ -189,7 +188,7 @@ class PostController extends Controller {
         $to = User::get($post->uid);
         $from = User::get($from);
         $message = '';
-        if ($to === FALSE || !($to->notifications) || $from === FALSE)
+        if ($to === FALSE || ($to->notifications == 0) || $from === FALSE)
             return ;
         if ($action === 'like')
             $message = '<p>Hi ' . htmlspecialchars($to->firstName) . ',</p><p><i>' . htmlspecialchars($from->username) . '</i> just liked your <a href="' . App::link('post/show/' . $post->pid) . '">post.</a></p><br>Best,<br>The Camagru Team';

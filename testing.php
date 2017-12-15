@@ -141,6 +141,11 @@ require_once('app/controllers/PostController.class.php');
 
 // $app = new App();
 
-echo User::auth('nlowe31', 'lolz');
+echo 'TEST';
+
+$pc = new PostController();
+$_SESSION['auth'] = 1;
+$_POST['pid'] = 2;
+$pc->like();
 
 ?>

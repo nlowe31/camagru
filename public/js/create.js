@@ -170,18 +170,3 @@
     }
 
     addEventListenerToClass('filter_icon', 'click', toggleFilter);
-
-    // _('approve').addEventListener('click', function (e) {
-    //     decide(e);
-    //     e.preventDefault();
-    // }, false);
-    //
-    // _('disapprove').addEventListener('click', function (e) {
-    //     decide(e);
-    //     e.preventDefault();
-    // }, false);
-
-    // _('load_more').addEventListener('click', function (e) {
-    //     loadMoreMiniPosts(e);
-    //     e.preventDefault();
-    // }, false);

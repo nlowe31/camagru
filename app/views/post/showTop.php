@@ -7,7 +7,7 @@ else
 ?>
 
 <div class="post_icon_tray">
-    <? if (isset($auth) && $auth) { ?>
+    <? if (isset($_SESSION['auth'])) { ?>
         <a href="#" class="post_icon_like" onclick="toggleLike(event);" data-pid="<?= htmlspecialchars($post->pid) ?>"><img class="post_icon" title="Like" src="<?=$like_src?>"/></a>
         <a href="#" class="post_icon_comment" onclick="focusComment(event);" data-pid="<?= htmlspecialchars($post->pid) ?>"><img class="post_icon" title="Comment" data-pid="<?= htmlspecialchars($post->pid) ?>"
                         src="/public/resources/icons/chat-1.png"/></a>

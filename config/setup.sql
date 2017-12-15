@@ -4,10 +4,10 @@ USE camagru;
 
 CREATE TABLE IF NOT EXISTS users (
     `uid` int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    `username` varchar(50) UNIQUE COLLATE utf8_unicode_ci NOT NULL,    
-    `email` varchar(50) UNIQUE COLLATE utf8_unicode_ci NOT NULL,
-    `firstName` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-    `lastName` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+    `username` varchar(255) UNIQUE COLLATE utf8_unicode_ci NOT NULL,    
+    `email` varchar(255) UNIQUE COLLATE utf8_unicode_ci NOT NULL,
+    `firstName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+    `lastName` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
     `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
     `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `registration` varchar(255) COLLATE utf8_unicode_ci,
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS posts (
     `pid` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `uid` int(11) NOT NULL,
-    `src` varchar(50),
+    `src` varchar(255),
     `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `confirmed` tinyint(1) NOT NULL DEFAULT 0,
     KEY (`uid`),
@@ -43,7 +43,6 @@ CREATE TABLE IF NOT EXISTS likes (
     `pid` int(11) NOT NULL,
     `uid` int(11) NOT NULL,
     `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `text` text COLLATE utf8_unicode_ci NOT NULL,
     KEY (`uid`),
     KEY (`pid`),
     CONSTRAINT `likes_pid` FOREIGN KEY (`pid`) REFERENCES `posts` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE,
