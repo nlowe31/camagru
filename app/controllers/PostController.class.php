@@ -85,6 +85,9 @@ class PostController extends Controller {
             imagecopy($img, $filter, 0, 0, 0, 0, imagesx($filter) - 1, imagesy($filter) - 1);
         }
         if ($post = Post::create($uid)) {
+            if (!file_exists('userData')) {
+                mkdir('userData', 0777, true);
+            }
             $filename = 'userData/' . $post->pid . '.png';
             if (imagepng($img, $filename)) {
                 $post->src = '/' . $filename;
